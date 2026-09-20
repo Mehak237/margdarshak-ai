@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Margdarshak AI - Technical Project & System Architecture Report</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    @page {
+      size: A4;
+      margin: 18mm 16mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 11pt;
+      line-height: 1.6;
+      color: #1e293b;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Cover / Header Banner */
+    .header-banner {
+      background: linear-gradient(135deg, #312e81 0%, #4338ca 50%, #6366f1 100%);
+      color: #ffffff;
+      padding: 32px 28px;
+      border-radius: 16px;
+      margin-bottom: 28px;
+      box-shadow: 0 10px 25px -5px rgba(67, 56, 202, 0.3);
+    }
+
+    .header-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 8.5pt;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 26pt;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin: 0 0 6px 0;
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      font-size: 13pt;
+      font-weight: 500;
+      opacity: 0.92;
+      margin: 0 0 18px 0;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      padding-top: 14px;
+      font-size: 9pt;
+    }
+
+    .meta-item strong {
+      color: #e0e7ff;
+      font-weight: 600;
+    }
+
+    .meta-item a {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    /* Typography & Headings */
+    h2 {
+      font-size: 15pt;
+      font-weight: 800;
+      color: #1e1b4b;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 6px;
+      margin-top: 28px;
+      margin-bottom: 14px;
+      page-break-after: avoid;
+    }
+
+    h3 {
+      font-size: 12pt;
+      font-weight: 700;
+      color: #312e81;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      page-break-after: avoid;
+    }
+
+    p {
+      margin: 0 0 12px 0;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin: 0 0 14px 0;
+      padding-left: 22px;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+
+    /* Callout Card Boxes */
+    .callout-box {
+      background: #f8fafc;
+      border-left: 4px solid #4f46e5;
+      padding: 14px 18px;
+      border-radius: 0 10px 10px 0;
+      margin: 16px 0;
+      page-break-inside: avoid;
+    }
+
+    .callout-box.success {
+      background: #f0fdf4;
+      border-left-color: #16a34a;
+    }
+
+    .callout-box.accent {
+      background: #faf5ff;
+      border-left-color: #9333ea;
+    }
+
+    .callout-title {
+      font-weight: 700;
+      font-size: 10pt;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 20px 0;
+      font-size: 9.5pt;
+      page-break-inside: avoid;
+    }
+
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    /* Code Blocks & Architecture Boxes */
+    pre, code {
+      font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 8.5pt;
+      line-height: 1.45;
+      overflow-x: auto;
+      margin: 14px 0;
+      page-break-inside: avoid;
+    }
+
+    .inline-code {
+      background: #f1f5f9;
+      color: #4338ca;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 9pt;
+      font-weight: 600;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* Badges */
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 8pt;
+      font-weight: 700;
+      margin-right: 4px;
+    }
+
+    .pill-green { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+    .pill-blue { background: #e0e7ff; color: #3730a3; border: 1px solid #c7d2fe; }
+    .pill-purple { background: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+
+    /* Page Breaks */
+    .page-break {
+      page-break-before: always;
+    }
+
+    /* Sign-Off Card */
+    .signoff-box {
+      border: 2px dashed #94a3b8;
+      background: #f8fafc;
+      padding: 20px 24px;
+      border-radius: 12px;
+      margin-top: 30px;
+      page-break-inside: avoid;
+    }
+
+    .signature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin-top: 35px;
+    }
+
+    .signature-line {
+      border-top: 1px solid #64748b;
+      padding-top: 6px;
+      font-size: 9pt;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER / TITLE BANNER -->
+  <div class="header-banner">
+    <div class="header-badge">🚀 Smart India Hackathon (SIH 2024 Edition) • Official Project Report</div>
+    <h1>MARGDARSHAK AI (मार्गदर्शक AI)</h1>
+    <div class="subtitle">"From Classroom to Dream Career — Guided by AI"</div>
+    
+    <div class="meta-grid">
+      <div class="meta-item"><strong>Founder & Developer:</strong> Mehak</div>
+      <div class="meta-item"><strong>Edition & Track:</strong> SIH 2024 Edition (Student Innovation)</div>
+      <div class="meta-item"><strong>Live Web Platform:</strong> <a href="https://margdarshak-ai-khaki.vercel.app">margdarshak-ai-khaki.vercel.app</a></div>
+      <div class="meta-item"><strong>GitHub Repository:</strong> <a href="https://github.com/Mehak237/margdarshak-ai">github.com/Mehak237/margdarshak-ai</a></div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: EXECUTIVE SUMMARY -->
+  <h2>1. Executive Summary</h2>
+  <p>
+    In India's higher education system, over <strong>1.5 million engineering and degree students graduate annually</strong>. Despite this massive volume, premier industry studies (including Wheebox National Employability Survey and NASSCOM reports) consistently reveal that <strong>less than 45% of graduates from Tier-2 and Tier-3 colleges possess the job-ready technical, behavioral, and communication proficiencies</strong> demanded by leading employers.
+  </p>
+  <p>
+    The root cause is not a deficit of student intellect, but a deep <strong>mentorship and information divide</strong>: students often lack insight into company-specific hiring criteria, miss out on thousands of crores in available financial scholarships due to fragmented discovery portals, and face immense fear during technical/HR interviews without accessible mock practice.
+  </p>
+  <div class="callout-box">
+    <div class="callout-title">Core Innovation & Impact:</div>
+    <strong>Margdarshak AI</strong> is an end-to-end, zero-cost, browser-based career guidance and placement acceleration platform founded, architected, and engineered by <strong>Mehak</strong> for the Smart India Hackathon (SIH 2024). It bridges the opportunity divide by delivering instant Resume vs. Dream Job Gap Analysis across 60+ Indian tech giants, 25+ verified scholarships with AI SOP writing, real-time voice AI mock interviews, 9 Indian languages, and an offline-resilient Progressive Web App (PWA) architecture.
+  </div>
+
+  <!-- SECTION 2: PROBLEM STATEMENT & GROUND REALITIES -->
+  <h2>2. Problem Statement & Ground Realities</h2>
+  <p>Tier-2 and Tier-3 college students encounter four chronic, systemic hurdles during their campus placement lifecycle:</p>
+  <ul>
+    <li><strong>The Vague Job Description & ATS Trap:</strong> Students build generic resumes lacking ATS keywords, leading to automated rejections by recruiter screening systems before human evaluation.</li>
+    <li><strong>The Financial & Scholarship Bottleneck:</strong> Over ₹2,000 Crores in government and philanthropic scholarship funds go underutilized every year because students are unaware of deadlines, income thresholds, or cannot draft an eloquent Statement of Purpose (SOP).</li>
+    <li><strong>Expensive Commercial Coaching Barriers:</strong> Private ed-tech platforms and mock interview services charge exorbitant rates (₹1,500–₹3,000 per hour), making quality preparation inaccessible for economically vulnerable students.</li>
+    <li><strong>The Linguistic Barrier:</strong> Quality placement preparation content is predominantly in English, creating severe hesitation and confidence drops among vernacular-speaking students.</li>
+  </ul>
+
+  <!-- SECTION 3: SYSTEM ARCHITECTURE -->
+  <div class="page-break"></div>
+  <h2>3. System Architecture & Technical Design</h2>
+  <p>
+    Margdarshak AI utilizes a <strong>Hybrid Edge-First Architecture</strong>. It operates with zero latency inside the client browser using modern Web APIs while enabling optional cloud synchronization and Google Gemini 1.5 Flash generative AI co-pilot capabilities.
+  </p>
+
+  <pre>
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                 MARGDARSHAK AI SYSTEM ARCHITECTURE                          │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                  │
+                   [ Vercel Global Edge Network ]
+                                  │
+                   [ Single Page Application (SPA) ]
+                                  │
+       ┌──────────────────────────┴──────────────────────────┐
+       ▼                                                     ▼
+ [ Client-Side Execution ]                             [ Progressive Cloud AI ]
+  • Client-Side PDF.js Resume Parsing                   • Google Gemini 1.5 Flash API
+  • Dynamic SVG Radial Score Ring                       • Node.js REST API (server.js)
+  • Web Speech API (TTS Voice & STT Mic)                • Cloud DB (Supabase / MongoDB)
+  • 9 Indian Languages Real-time Switcher               • Multi-User Account Profiles
+  • Service Worker (sw.js) Offline Cache                • Health Monitoring Endpoint
+  • LocalStorage Dual-Mode DB
+  </pre>
+
+  <h3>Key Architectural Principles:</h3>
+  <ol>
+    <li><strong>Zero Build Dependency:</strong> Built using clean, native ES6+ JavaScript, HTML5, and Tailwind CSS. Eliminates heavy node bundlers and ensures lightning-fast execution (&lt;0.8s load time).</li>
+    <li><strong>Zero-Data-Leak Privacy:</strong> PDF resumes are parsed locally in browser memory via PDF.js worker; personal CV files are never transferred to third-party servers.</li>
+    <li><strong>Dual Storage Architecture:</strong> Scans, saved scholarships, and interview results persist immediately in browser LocalStorage with automatic asynchronous synchronization to cloud backends.</li>
+  </ol>
+
+  <!-- SECTION 4: CORE FEATURES -->
+  <h2>4. Core Modules & What Was Built by Mehak</h2>
+
+  <h3>4.1 Resume vs. Dream Job Gap Analyzer & 15-Day Roadmap</h3>
+  <ul>
+    <li><strong>60+ Premier Companies Covered:</strong> Includes Product Giants (Google, Amazon, Microsoft, Adobe), Indian IT Titans (TCS Ninja/Digital, Infosys SE/DSE, Wipro, Cognizant), High-Growth Unicorns (Flipkart, Swiggy, Zomato, CRED), and Fintech/Banking (Goldman Sachs, Morgan Stanley, JPMorgan).</li>
+    <li><strong>Algorithmic ATS Matching:</strong> Parses candidate skills, cross-checks against verified company skill benchmarks, and computes weighted match scores distinguishing <em>Core Must-Have Skills</em> from <em>Bonus Edge Skills</em>.</li>
+    <li><strong>Dynamic Animated SVG Score Ring:</strong> Renders real-time radial progress with reactive color gradients (Green: Ready, Amber: Minor Gaps, Rose: Needs Foundations).</li>
+    <li><strong>15-Day Action Roadmap:</strong> Structured into three actionable phases:
+      <ul>
+        <li><em>Phase 1 (Days 1–5):</em> Foundation repair on missing critical skills.</li>
+        <li><em>Phase 2 (Days 6–10):</em> Hands-on portfolio project implementation.</li>
+        <li><em>Phase 3 (Days 11–15):</em> Mock coding questions, system design, and interview practice.</li>
+      </ul>
+    </li>
+    <li><strong>'Tell Me About Yourself' Pitch Evaluator:</strong> Assesses candidate introduction pitches and delivers instant rubric critique.</li>
+  </ul>
+
+  <div class="page-break"></div>
+  <h3>4.2 Smart Scholarship Engine & AI SOP Co-Pilot</h3>
+  <ul>
+    <li><strong>25+ Verified Indian Schemes:</strong> Curated schemes including AICTE Pragati for Girls (₹50,000/yr), Reliance Foundation (₹2,00,000), Tata Trust Grants, NSP Central Sector, Post-Matric SC/ST/OBC, and ONGC Scholars.</li>
+    <li><strong>6-Dimensional Eligibility Matrix:</strong> Instant filtering across Family Income (&lt;₹1.5L, ₹2.5L BPL, ₹4.5L, ₹8L EWS), Academic Marks (40%–98%), Social Category, Gender, Domicile State, and Degree Stream.</li>
+    <li><strong>Committee-Ready AI SOP Co-Pilot:</strong> Generates structured 4-paragraph Statements of Purpose highlighting:
+      <ol>
+        <li>Academic passion & background</li>
+        <li>Financial hardships & family resilience</li>
+        <li>Career aspirations & tech focus</li>
+        <li>Social commitment to give back to the nation</li>
+      </ol>
+    </li>
+  </ul>
+
+  <h3>4.3 Real-Time Voice AI Mock Interviewer with Live Scorecard</h3>
+  <ul>
+    <li><strong>200+ Company-Specific Questions:</strong> Mapped to actual recruitment drives of TCS, Infosys, Amazon, Wipro, etc.</li>
+    <li><strong>Interactive Speech Synthesis:</strong> The browser vocalizes questions naturally using HTML5 Web Speech Synthesis API.</li>
+    <li><strong>Speech-to-Text Input:</strong> Enables students to speak their answers directly via microphone, testing live articulation.</li>
+    <li><strong>10-Point Scorecard Rubric:</strong> Scores student answers across Technical Accuracy (4 pts), Structure & Depth (2 pts), STAR Method Compliance (2 pts), and Communication Confidence (2 pts).</li>
+  </ul>
+
+  <h3>4.4 Bharat Multilingual Engine (9 Indian Languages)</h3>
+  <p>
+    Instant, zero-reload localization across 9 languages: 
+    <span class="pill pill-blue">English</span>
+    <span class="pill pill-green">हिंदी (Hindi)</span>
+    <span class="pill pill-purple">Hinglish</span>
+    <span class="pill pill-blue">தமிழ் (Tamil)</span>
+    <span class="pill pill-green">తెలుగు (Telugu)</span>
+    <span class="pill pill-purple">ಕನ್ನಡ (Kannada)</span>
+    <span class="pill pill-blue">বাংলা (Bengali)</span>
+    <span class="pill pill-green">मराठी (Marathi)</span>
+    <span class="pill pill-purple">ગુજરાતી (Gujarati)</span>.
+  </p>
+
+  <h3>4.5 PWA Offline Resilience & Viral Sharing</h3>
+  <ul>
+    <li><strong>Progressive Web App:</strong> Installs directly to mobile and desktop home screens via <span class="inline-code">manifest.json</span> and <span class="inline-code">sw.js</span>, caching critical assets for zero-bandwidth operation.</li>
+    <li><strong>1-Click WhatsApp Batch Sharing:</strong> Pre-filled invite card allowing students to spread the platform virally across college WhatsApp and Telegram study groups.</li>
+  </ul>
+
+  <!-- SECTION 5: CODEBASE BREAKDOWN -->
+  <h2>5. Complete Codebase & File Breakdown</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">File / Path</th>
+        <th style="width: 20%;">Type</th>
+        <th>Technical Responsibility</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>index.html</strong></td>
+        <td>SPA Markup</td>
+        <td>Full semantic single-page application UI, modular sections, navigation, and modals.</td>
+      </tr>
+      <tr>
+        <td><strong>css/style.css</strong></td>
+        <td>Styles & Theme</td>
+        <td>Custom dark/light glassmorphism design tokens, keyframe animations, and responsive utilities.</td>
+      </tr>
+      <tr>
+        <td><strong>js/app.js</strong></td>
+        <td>Master Controller</td>
+        <td>Client-side routing, tab coordination, theme switcher, and WhatsApp share handler.</td>
+      </tr>
+      <tr>
+        <td><strong>js/gapAnalyzer.js</strong></td>
+        <td>Engine</td>
+        <td>Resume text extraction (PDF.js), 60+ company gap matcher, and 15-day roadmap builder.</td>
+      </tr>
+      <tr>
+        <td><strong>js/scholarshipEngine.js</strong></td>
+        <td>Engine</td>
+        <td>Multi-factor scholarship query engine and committee-ready AI SOP writer.</td>
+      </tr>
+      <tr>
+        <td><strong>js/mockInterviewer.js</strong></td>
+        <td>Engine</td>
+        <td>Voice speech synthesis, speech recognition, and 10-point answer evaluation rubric.</td>
+      </tr>
+      <tr>
+        <td><strong>js/auth.js</strong></td>
+        <td>Auth Controller</td>
+        <td>Universal document-delegated authentication, student session management, and demo seeds.</td>
+      </tr>
+      <tr>
+        <td><strong>data/companies.js</strong></td>
+        <td>Dataset</td>
+        <td>60+ curated Indian tech companies with categorized core & bonus skill definitions.</td>
+      </tr>
+      <tr>
+        <td><strong>data/scholarships.js</strong></td>
+        <td>Dataset</td>
+        <td>25+ verified Indian scholarships with live application links and eligibility rules.</td>
+      </tr>
+      <tr>
+        <td><strong>data/translations.js</strong></td>
+        <td>Dataset</td>
+        <td>Multilingual dictionary for 9 Indian languages.</td>
+      </tr>
+      <tr>
+        <td><strong>server.js</strong></td>
+        <td>Backend</td>
+        <td>Native Node.js REST API with cloud database support and Gemini proxy.</td>
+      </tr>
+      <tr>
+        <td><strong>sw.js & manifest.json</strong></td>
+        <td>PWA Engine</td>
+        <td>Service worker offline cache and web app installation manifest.</td>
+      </tr>
+      <tr>
+        <td><strong>vercel.json</strong></td>
+        <td>Cloud Config</td>
+        <td>Static edge routing and cloud production deployment configuration.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 6: MATHEMATICAL SCORING -->
+  <div class="page-break"></div>
+  <h2>6. Mathematical ATS Scoring Formulation</h2>
+  <p>The candidate match score is calculated using a dual-weighted polynomial:</p>
+  <div class="callout-box accent">
+    <strong>ATS Match Formula:</strong><br>
+    <code>Score_ATS = [ (Matched_Core / Total_Core) × 70% ] + [ (Matched_Bonus / Total_Bonus) × 30% ]</code>
+  </div>
+  <ul>
+    <li><strong>Score ≥ 80% (Ready for Placement):</strong> Candidate strongly aligned; ready to apply immediately.</li>
+    <li><strong>Score 60% – 79% (Competitive with Gaps):</strong> Needs 5–10 days targeted upskilling using the personalized roadmap.</li>
+    <li><strong>Score &lt; 60% (Foundation Required):</strong> Requires structured phase 1 fundamentals completion.</li>
+  </ul>
+
+  <!-- SECTION 7: NEP 2020 & SOCIAL IMPACT -->
+  <h2>7. Social Impact & NEP 2020 Alignment</h2>
+  <div class="callout-box success">
+    <div class="callout-title">Alignment with National Objectives:</div>
+    <ul>
+      <li><strong>Viksit Bharat 2047:</strong> Empowers youth in non-metro regions with equal access to elite career guidance.</li>
+      <li><strong>NEP 2020:</strong> Promotes multidisciplinary practical skill acquisition and vernacular language inclusion.</li>
+      <li><strong>Women in Tech Empowerment:</strong> Actively highlights schemes like AICTE Pragati to boost female engineering participation.</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 8: FUTURE ROADMAP -->
+  <h2>8. Future Roadmap</h2>
+  <ul>
+    <li><strong>Phase 2 (Q4 2026):</strong> College Training & Placement Officer (TPO) dashboard with batch-wide skill weakness analytics.</li>
+    <li><strong>Phase 3 (2027):</strong> Real-time peer-to-peer mock interview rooms with video WebRTC and AI automated resume builder.</li>
+  </ul>
+
+  <!-- SIGN OFF & CERTIFICATION -->
+  <div class="signoff-box">
+    <div style="font-weight: 800; font-size: 11pt; color: #1e1b4b;">PROJECT CERTIFICATION & MENTOR REVIEW</div>
+    <p style="font-size: 9pt; color: #475569; margin-top: 6px;">
+      This technical report confirms that Margdarshak AI has been conceptualized, developed, tested, and deployed to production as an original educational innovation for the Smart India Hackathon (SIH 2024 Edition).
+    </p>
+
+    <div class="signature-grid">
+      <div>
+        <div style="font-weight: 700; font-size: 10pt; color: #0f172a;">Mehak</div>
+        <div class="signature-line">Founder & Lead Developer • Margdarshak AI</div>
+      </div>
+      <div>
+        <div style="font-weight: 700; font-size: 10pt; color: #0f172a;">Faculty / Mentor Signature</div>
+        <div class="signature-line">Project Evaluator • Academic & SIH Committee</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
