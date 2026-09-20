@@ -2,11 +2,6 @@
   "name": "margdarshak-ai",
   "version": "1.0.0",
   "description": "From Classroom to Dream Career — Guided by AI. Created by Mehak | SIH 2024 Edition",
-  "main": "index.html",
-  "scripts": {
-    "start": "node server.js",
-    "serve": "python server.py"
-  },
   "author": "Mehak",
   "license": "MIT"
 }
