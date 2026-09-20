@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Margdarshak AI — From Classroom to Dream Career (Created by Mehak)</title>
+  <meta name="description" content="Margdarshak AI: From Classroom to Dream Career — Guided by AI. Created by Mehak. 60+ Indian companies gap analysis, 25+ verified scholarships with AI SOP writing, and live AI mock interviews.">
+  <meta name="author" content="Mehak">
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="manifest" href="manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Margdarshak AI">
+
+  <!-- Open Graph / WhatsApp / Telegram Social Preview Cards -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Margdarshak AI — Created by Mehak | SIH 2024 Edition">
+  <meta property="og:description" content="From Classroom to Dream Career — 60+ Indian Companies Gap Analysis, 25+ Verified Scholarships with AI SOP Writer, and Real-Time Mock Interviewer.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Margdarshak AI — Created by Mehak">
+  <meta name="twitter:description" content="From Classroom to Dream Career — Guided by AI. Tailored for 10M+ Indian Tier-2 & Tier-3 Aspirants.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- PDF.js for client-side PDF resume parsing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    if (window.pdfjsLib) {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+  </script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-200">
+
+  <!-- Confetti Canvas -->
+  <canvas id="confettiCanvas" class="fixed inset-0 pointer-events-none z-50 hidden"></canvas>
+
+  <!-- BACKGROUND GLOW -->
+  <div class="hero-glow-bg"></div>
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 w-full glass-nav border-b border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo & Tagline -->
+      <div class="flex items-center gap-3">
+        <a href="#home" data-nav-target="home" class="flex items-center gap-2.5 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition">
+            <i data-lucide="compass" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-lg font-black tracking-tight font-display bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-300 dark:to-pink-400 bg-clip-text text-transparent">
+                Margdarshak AI
+              </span>
+              <!-- CREATOR ATTRIBUTION BADGE (Top Navbar) -->
+              <span class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-400/20 via-pink-400/20 to-purple-400/20 border border-amber-400/40 text-amber-600 dark:text-amber-300 shadow-sm">
+                <i data-lucide="sparkles" class="w-3 h-3 text-amber-500"></i>
+                Created by Mehak
+              </span>
+            </div>
+            <div id="brandTaglineText" class="text-[10px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block">
+              From Classroom to Dream Career — Guided by AI
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="#home" data-nav-target="home" data-i18n="navHome" class="text-indigo-600 dark:text-indigo-400 font-bold hover:text-indigo-600 transition">Home</a>
+        <a href="#gap" data-nav-target="gap" data-i18n="navGap" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 transition">Resume Gap</a>
+        <a href="#scholarship" data-nav-target="scholarship" data-i18n="navScholarship" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 transition">Scholarships & SOP</a>
+        <a href="#mock" data-nav-target="mock" data-i18n="navMock" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 transition">AI Mock Interview</a>
+        <a href="#dashboard" data-nav-target="dashboard" data-i18n="navDashboard" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 transition flex items-center gap-1.5">
+          <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+          Dashboard
+        </a>
+      </nav>
+
+      <!-- Right Controls: Multilingual Selector, Share, Gemini, Theme & Student Auth -->
+      <div class="flex items-center gap-2 sm:gap-2.5">
+        
+        <!-- Multilingual Dropdown (9 Indian Languages) -->
+        <div class="relative">
+          <select id="languageSelectorDropdown" class="text-xs font-semibold py-1.5 pl-2.5 pr-8 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer">
+            <option value="en">🇮🇳 English</option>
+            <option value="hi">🇮🇳 हिंदी (Hindi)</option>
+            <option value="hinglish">🇮🇳 Hinglish</option>
+            <option value="ta">🇮🇳 தமிழ் (Tamil)</option>
+            <option value="te">🇮🇳 తెలుగు (Telugu)</option>
+            <option value="kn">🇮🇳 ಕನ್ನಡ (Kannada)</option>
+            <option value="bn">🇮🇳 বাংলা (Bengali)</option>
+            <option value="mr">🇮🇳 मराठी (Marathi)</option>
+            <option value="gu">🇮🇳 ગુજરાતી (Gujarati)</option>
+          </select>
+        </div>
+
+        <!-- 1-Click WhatsApp & Social Share Button -->
+        <button id="shareModalBtn" title="Share with College Batch" class="flex items-center gap-1 text-xs font-semibold py-1.5 px-2.5 rounded-xl border border-emerald-500/40 bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition cursor-pointer">
+          <i data-lucide="share-2" class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400"></i>
+          <span class="hidden sm:inline">Share</span>
+        </button>
+
+        <!-- Google Gemini 1.5 Flash AI Settings Button -->
+        <button id="geminiSettingsBtn" title="Google Gemini 1.5 Flash AI Engine Settings" class="flex items-center gap-1 text-xs font-semibold py-1.5 px-2.5 rounded-xl border border-indigo-500/40 bg-indigo-50/70 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition cursor-pointer">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400"></i>
+          <span class="hidden lg:inline">Gemini AI</span>
+        </button>
+
+        <!-- PWA Offline Install Button (Shown on installable devices) -->
+        <button id="pwaInstallBtn" title="Install Margdarshak App for Offline Use" class="hidden flex items-center gap-1 text-xs font-semibold py-1.5 px-2.5 rounded-xl border border-purple-500/40 bg-purple-50/70 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/50 transition cursor-pointer">
+          <i data-lucide="download" class="w-3.5 h-3.5 text-purple-600 dark:text-purple-400"></i>
+          <span class="hidden sm:inline">Install</span>
+        </button>
+
+        <!-- Dark / Light Theme Toggle Button -->
+        <button id="themeToggleBtn" aria-label="Toggle Theme" class="p-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition cursor-pointer">
+          <i id="themeIconDark" data-lucide="moon" class="w-4 h-4 hidden"></i>
+          <i id="themeIconLight" data-lucide="sun" class="w-4 h-4"></i>
+        </button>
+
+        <!-- Student Multi-User Auth Profile Container -->
+        <div id="navAuthContainer"></div>
+
+        <!-- Mobile Hamburger Menu Button -->
+        <button id="mobileMenuToggleBtn" class="md:hidden p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 cursor-pointer">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileMenuDropdown" class="hidden md:hidden px-4 pt-2 pb-4 border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 space-y-2 text-sm font-medium">
+      <!-- Mobile Auth Container -->
+      <div id="mobileAuthContainer" class="pt-1 pb-1"></div>
+
+      <a href="#home" data-nav-target="home" data-i18n="navHome" class="block py-2 text-slate-700 dark:text-slate-200">Home</a>
+      <a href="#gap" data-nav-target="gap" data-i18n="navGap" class="block py-2 text-slate-700 dark:text-slate-200">Resume Gap</a>
+      <a href="#scholarship" data-nav-target="scholarship" data-i18n="navScholarship" class="block py-2 text-slate-700 dark:text-slate-200">Scholarships & SOP</a>
+      <a href="#mock" data-nav-target="mock" data-i18n="navMock" class="block py-2 text-slate-700 dark:text-slate-200">AI Mock Interview</a>
+      <a href="#dashboard" data-nav-target="dashboard" data-i18n="navDashboard" class="block py-2 text-slate-700 dark:text-slate-200">Student Dashboard</a>
+      
+      <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center gap-2">
+        <button id="mobileShareBtn" class="flex-1 py-2 px-3 rounded-xl border border-emerald-500/40 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-xs font-semibold flex items-center justify-center gap-1.5">
+          <i data-lucide="share-2" class="w-3.5 h-3.5"></i> Share with Batch
+        </button>
+        <button id="mobileGeminiBtn" class="flex-1 py-2 px-3 rounded-xl border border-indigo-500/40 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 text-xs font-semibold flex items-center justify-center gap-1.5">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Gemini AI
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 1: HERO / HOME                                                   -->
+    <!-- ========================================================================= -->
+    <section id="section-home" class="space-y-12">
+      <!-- Hero Banner -->
+      <div class="text-center max-w-3xl mx-auto space-y-6 pt-4">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60 shadow-sm">
+          <span data-i18n="heroBadge">🚀 SIH 2024 Edition • Empowering Tier-2 & Tier-3 Aspirants</span>
+        </div>
+        
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight font-display leading-[1.15]">
+          <span data-i18n="heroTitlePrefix">From Classroom to</span>
+          <span class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 dark:from-indigo-400 dark:via-purple-300 dark:to-pink-400 bg-clip-text text-transparent" data-i18n="heroTitleHighlight">Dream Career</span>
+          <span class="block mt-1" data-i18n="heroTitleSuffix">— Guided by AI</span>
+        </h1>
+
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal" data-i18n="heroSubtitle">
+          Empowering 10 Million+ Indian engineering and degree students with hyper-personalized career gap analysis, 25+ verified scholarships with AI SOP writing, and live AI mock interviews tailored for 60+ top Indian companies.
+        </p>
+
+        <!-- CTA Action Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <a href="#gap" data-nav-target="gap" class="glow-button inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-sm shadow-lg transition transform hover:-translate-y-0.5">
+            <i data-lucide="scan-search" class="w-4 h-4"></i>
+            <span data-i18n="ctaAnalyze">Analyze Resume Gap</span>
+          </a>
+          <a href="#scholarship" data-nav-target="scholarship" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 text-slate-800 dark:text-slate-200 font-bold text-sm transition shadow-sm">
+            <i data-lucide="graduation-cap" class="w-4 h-4 text-emerald-500"></i>
+            <span data-i18n="ctaScholarship">Find Scholarships</span>
+          </a>
+          <a href="#mock" data-nav-target="mock" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 text-slate-800 dark:text-slate-200 font-bold text-sm transition shadow-sm">
+            <i data-lucide="mic" class="w-4 h-4 text-purple-500"></i>
+            <span data-i18n="ctaMock">Start Mock Interview</span>
+          </a>
+        </div>
+
+        <!-- Live Trust / Impact Metrics -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8">
+          <div class="p-4 rounded-2xl glass-card text-center">
+            <div class="text-2xl font-black text-indigo-600 dark:text-indigo-400">10M+</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1" data-i18n="statStudents">Students Target</div>
+          </div>
+          <div class="p-4 rounded-2xl glass-card text-center">
+            <div class="text-2xl font-black text-purple-600 dark:text-purple-400">60+</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1" data-i18n="statCompanies">Indian Companies</div>
+          </div>
+          <div class="p-4 rounded-2xl glass-card text-center">
+            <div class="text-2xl font-black text-emerald-600 dark:text-emerald-400">25+</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1" data-i18n="statScholarships">Verified Schemes</div>
+          </div>
+          <div class="p-4 rounded-2xl glass-card text-center">
+            <div class="text-2xl font-black text-pink-600 dark:text-pink-400">94%</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1" data-i18n="statAccuracy">Placement Accuracy</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Highlight Showcase Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
+        
+        <!-- Card 1 -->
+        <div class="glass-card rounded-3xl p-6 relative overflow-hidden group hover:border-indigo-500/80 transition duration-300 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+              <i data-lucide="target" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white" data-i18n="gapTitle">
+              Resume vs Dream Job Gap Analyzer
+            </h3>
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed" data-i18n="gapSubtitle">
+              Search any Indian company & target role. Upload your resume to unlock an instant skill match score and a tailored 15-day action roadmap.
+            </p>
+          </div>
+          <div class="pt-6">
+            <a href="#gap" data-nav-target="gap" class="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 group-hover:translate-x-1 transition">
+              Explore Gap Analyzer <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass-card rounded-3xl p-6 relative overflow-hidden group hover:border-emerald-500/80 transition duration-300 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+              <i data-lucide="award" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white" data-i18n="scholarshipTitle">
+              Smart Scholarship Engine & AI SOP
+            </h3>
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed" data-i18n="scholarshipSubtitle">
+              Find 25+ state, central, and philanthropic scholarships in India matching your profile, and generate committee-ready Statements of Purpose in seconds.
+            </p>
+          </div>
+          <div class="pt-6">
+            <a href="#scholarship" data-nav-target="scholarship" class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 group-hover:translate-x-1 transition">
+              Find Scholarships <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass-card rounded-3xl p-6 relative overflow-hidden group hover:border-purple-500/80 transition duration-300 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+              <i data-lucide="bot" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white" data-i18n="mockTitle">
+              AI Mock Interviewer with Scorecard
+            </h3>
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed" data-i18n="mockSubtitle">
+              Real-time technical and behavioral interview simulation for top Indian companies with voice read-aloud, instant feedback, and detailed scoring.
+            </p>
+          </div>
+          <div class="pt-6">
+            <a href="#mock" data-nav-target="mock" class="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:translate-x-1 transition">
+              Start Practice Session <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 2: KILLER FEATURE #1 - RESUME VS DREAM JOB GAP ANALYZER           -->
+    <!-- ========================================================================= -->
+    <section id="section-gap" class="hidden space-y-8">
+      
+      <!-- Section Header -->
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60 mb-2">
+          <span>Killer Feature #1</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-black font-display text-slate-900 dark:text-white" data-i18n="gapTitle">
+          Resume vs Dream Job Gap Analyzer
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1" data-i18n="gapSubtitle">
+          Search any Indian company & target role. Upload your resume to unlock an instant skill match score and a tailored 15-day action roadmap.
+        </p>
+      </div>
+
+      <!-- Controls & Input Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left: Company / Role Search & Selection -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="glass-card rounded-3xl p-6 space-y-5">
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2" data-i18n="selectCompanyRole">
+              <i data-lucide="briefcase" class="w-4 h-4 text-indigo-500"></i>
+              Select Target Company & Role
+            </h3>
+
+            <!-- Search Autocomplete Input -->
+            <div class="relative">
+              <div class="relative">
+                <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3.5 text-slate-400"></i>
+                <input 
+                  type="text" 
+                  id="companySearchInput" 
+                  placeholder="Search 60+ companies (e.g. TCS, Amazon, Flipkart, Infosys)..."
+                  data-i18n-placeholder="searchCompanyPlaceholder"
+                  class="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+
+              <!-- Search Results Dropdown List -->
+              <div id="companySearchDropdown" class="hidden absolute left-0 right-0 top-12 z-30 max-h-64 overflow-y-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl">
+                <!-- Dynamically populated via gapAnalyzer.js -->
+              </div>
+            </div>
+
+            <!-- Current Selected Target Display -->
+            <div id="selectedTargetBadge">
+              <!-- Dynamically populated -->
+            </div>
+
+            <!-- Custom Role / Company Toggle -->
+            <div>
+              <button id="customRoleToggleBtn" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
+                <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+                <span data-i18n="orEnterCustom">Or Enter Custom Role / Company</span>
+              </button>
+
+              <div id="customRoleBox" class="hidden mt-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3">
+                <div>
+                  <label class="text-[11px] font-semibold text-slate-600 dark:text-slate-300" data-i18n="customCompany">Company Name</label>
+                  <input type="text" id="customCompanyInput" placeholder="e.g., Swiggy or CRED" class="w-full mt-1 px-3 py-2 rounded-xl text-xs border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                  <label class="text-[11px] font-semibold text-slate-600 dark:text-slate-300" data-i18n="customRole">Role / Job Title</label>
+                  <input type="text" id="customRoleInput" placeholder="e.g., Backend Golang Engineer" class="w-full mt-1 px-3 py-2 rounded-xl text-xs border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+              </div>
+            </div>
+
+            <!-- Sample Resume Pre-loaders -->
+            <div class="pt-2 border-t border-slate-100 dark:border-slate-800">
+              <div class="text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-2">⚡ Quick Test: Load Sample Resume:</div>
+              <div class="flex flex-col gap-1.5">
+                <button id="sampleResume1" class="text-left text-xs px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800/80 hover:bg-indigo-50 dark:hover:bg-slate-700/80 text-slate-700 dark:text-slate-300 transition" data-i18n="loadSample1">
+                  1. Tier-3 CSE Fresher (C++, Java, basic SQL)
+                </button>
+                <button id="sampleResume2" class="text-left text-xs px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800/80 hover:bg-indigo-50 dark:hover:bg-slate-700/80 text-slate-700 dark:text-slate-300 transition" data-i18n="loadSample2">
+                  2. Non-CS Aspirant (Python, Excel, Tableau)
+                </button>
+                <button id="sampleResume3" class="text-left text-xs px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800/80 hover:bg-indigo-50 dark:hover:bg-slate-700/80 text-slate-700 dark:text-slate-300 transition" data-i18n="loadSample3">
+                  3. Full-Stack MERN Dev (React, Node, Mongo, Docker)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Resume Upload & Text Input -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="glass-card rounded-3xl p-6 space-y-5">
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center justify-between" data-i18n="uploadResumeTitle">
+              <span class="flex items-center gap-2">
+                <i data-lucide="file-text" class="w-4 h-4 text-indigo-500"></i>
+                Upload or Paste Your Resume
+              </span>
+              <span id="uploadStatusText" class="text-[11px] font-normal text-indigo-500"></span>
+            </h3>
+
+            <!-- Drag & Drop Zone -->
+            <div id="resumeDropZone" class="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 rounded-2xl p-6 text-center cursor-pointer transition">
+              <input type="file" id="resumeFileInput" accept=".txt,.pdf,.docx" class="hidden" />
+              <div class="w-10 h-10 mx-auto rounded-full bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-2 pointer-events-none">
+                <i data-lucide="upload-cloud" class="w-5 h-5 pointer-events-none"></i>
+              </div>
+              <p class="text-xs font-semibold text-slate-800 dark:text-slate-200 pointer-events-none" data-i18n="dragDropResume">
+                Drag & drop PDF, DOCX or TXT here, or click to browse
+              </p>
+              <p class="text-[10px] text-slate-400 mt-1 pointer-events-none">Supports PDF, DOCX, TXT exports</p>
+            </div>
+
+            <!-- Textarea Paste Option -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300" data-i18n="pasteResumeLabel">
+                  Or Paste Resume Text Directly:
+                </label>
+                <button type="button" id="clearResumeTextBtn" class="text-[11px] text-slate-400 hover:text-indigo-500 transition font-medium">Clear Text</button>
+              </div>
+              <textarea 
+                id="resumeTextInput" 
+                rows="7" 
+                placeholder="Paste your resume content, technical projects, education, and skills here..."
+                data-i18n-placeholder="pasteResumePlaceholder"
+                class="w-full p-3.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono transition"
+              ></textarea>
+              <div id="resumeInputError" class="hidden text-xs text-rose-500 font-semibold mt-1.5 flex items-center gap-1">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                <span>Please upload a resume file, paste resume text, or load a Sample Resume!</span>
+              </div>
+            </div>
+
+            <!-- Run Analysis Button -->
+            <button id="runGapAnalysisBtn" type="button" onclick="if(window.gapAnalyzer) window.gapAnalyzer.runAnalysis()" class="glow-button w-full py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+              <span data-i18n="btnAnalyze">Run AI Gap Analysis</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- ANALYSIS RESULTS CONTAINER (Revealed on analysis)                          -->
+      <!-- ========================================================================= -->
+      <div id="gapAnalysisResults" class="hidden space-y-8 pt-4">
+        
+        <!-- Score Card & Skills Overview -->
+        <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
+            <div>
+              <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Analysis Result</div>
+              <h3 id="analysisResultRoleHeading" class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mt-0.5">
+                Target Role
+              </h3>
+            </div>
+            <div id="matchScoreTier" class="px-4 py-1.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300">
+              Score Assessment
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            
+            <!-- Circular SVG Progress Meter -->
+            <div class="md:col-span-4 flex flex-col items-center justify-center">
+              <div class="relative w-36 h-36">
+                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
+                  <circle cx="60" cy="60" r="54" stroke="currentColor" stroke-width="10" class="text-slate-200 dark:text-slate-800" fill="transparent"/>
+                  <circle id="matchScoreSvgCircle" cx="60" cy="60" r="54" stroke="currentColor" stroke-width="10" class="stroke-indigo-500" fill="transparent" stroke-dasharray="339.29" stroke-dashoffset="339.29" stroke-linecap="round"/>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                  <span id="matchScoreValue" class="text-3xl font-black text-slate-900 dark:text-white font-display">0%</span>
+                  <span class="text-[10px] uppercase font-bold text-slate-400">Match</span>
+                </div>
+              </div>
+              <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-2" data-i18n="matchScore">
+                Dream Job Match Score
+              </div>
+            </div>
+
+            <!-- Skills Pill Lists -->
+            <div class="md:col-span-8 space-y-4">
+              
+              <!-- Matched Skills -->
+              <div>
+                <div class="text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-1.5 flex items-center gap-1.5">
+                  <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
+                  <span data-i18n="matchedSkills">Matched Critical Skills</span>
+                </div>
+                <div id="matchedSkillsBadges" class="flex flex-wrap gap-1.5">
+                  <!-- Badges inserted dynamically -->
+                </div>
+              </div>
+
+              <!-- Missing Required Skills -->
+              <div>
+                <div class="text-xs font-bold text-rose-600 dark:text-rose-400 mb-1.5 flex items-center gap-1.5">
+                  <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                  <span data-i18n="missingSkills">Missing Required Skills</span>
+                </div>
+                <div id="missingSkillsBadges" class="flex flex-wrap gap-1.5">
+                  <!-- Badges inserted dynamically -->
+                </div>
+              </div>
+
+              <!-- Bonus Skills -->
+              <div>
+                <div class="text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5 flex items-center gap-1.5">
+                  <i data-lucide="sparkle" class="w-3.5 h-3.5"></i>
+                  <span data-i18n="recommendedSkills">Recommended Edge Skills</span>
+                </div>
+                <div id="recommendedSkillsBadges" class="flex flex-wrap gap-1.5">
+                  <!-- Badges inserted dynamically -->
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 15-Day Personalized Action Roadmap -->
+        <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white" data-i18n="roadmapTitle">
+                Your Personalized 15-Day Action Roadmap
+              </h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="roadmapSubtitle">
+                Curated roadmap to elevate your match score from current to 90%+
+              </p>
+            </div>
+            <span class="text-xs font-bold px-3 py-1 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-300">
+              15 Days to 90%+
+            </span>
+          </div>
+
+          <div id="roadmapContentContainer" class="pt-2">
+            <!-- Dynamically populated roadmap phases -->
+          </div>
+        </div>
+
+        <!-- "Tell Me About Yourself" Intro Pitch Diagnostic -->
+        <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-4">
+          <div class="max-w-2xl">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white" data-i18n="pitchEvaluatorTitle">
+              'Tell Me About Yourself' Elevator Pitch Evaluator
+            </h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="pitchSubtitle">
+              Paste your current introduction. AI will evaluate it against your target role.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <textarea 
+              id="pitchTextInput" 
+              rows="3" 
+              placeholder="e.g. Hi, I am Rahul, a 4th-year Computer Science student at AKTU. I have built 2 React projects and solved 200 DSA questions..."
+              data-i18n-placeholder="pitchPlaceholder"
+              class="w-full p-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            ></textarea>
+
+            <button id="evaluatePitchBtn" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition flex items-center gap-1.5">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+              <span data-i18n="btnEvaluatePitch">Evaluate My Pitch</span>
+            </button>
+          </div>
+
+          <div id="pitchFeedbackContainer" class="hidden">
+            <!-- Populated via gapAnalyzer.js -->
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 3: KILLER FEATURE #2 - SCHOLARSHIPS & AI SOP                      -->
+    <!-- ========================================================================= -->
+    <section id="section-scholarship" class="hidden space-y-8">
+      
+      <!-- Section Header -->
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60 mb-2">
+          <span>Killer Feature #2</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-black font-display text-slate-900 dark:text-white" data-i18n="scholarshipTitle">
+          Smart Scholarship Eligibility Engine & AI SOP Co-Pilot
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1" data-i18n="scholarshipSubtitle">
+          Find 25+ state, central, and philanthropic scholarships in India matching your profile, and generate committee-ready Statements of Purpose in seconds.
+        </p>
+      </div>
+
+      <!-- Demographic & Academic Filter Card -->
+      <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+          <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2" data-i18n="filterHeader">
+            <i data-lucide="sliders-horizontal" class="w-4 h-4 text-emerald-500"></i>
+            Your Demographic & Academic Profile
+          </h3>
+          <button id="scholarshipResetFilterBtn" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline font-semibold">
+            Reset Filters
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 text-xs">
+          
+          <!-- Income Filter -->
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelIncome">
+              Annual Family Income (INR)
+            </label>
+            <select id="scholarshipIncomeFilter" class="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+              <option value="all">Any Income Limit</option>
+              <option value="150000">Less than ₹1.5 Lakhs / yr (Severe Need)</option>
+              <option value="250000" selected>Up to ₹2.5 Lakhs / yr (Govt. BPL cutoff)</option>
+              <option value="450000">Up to ₹4.5 Lakhs / yr</option>
+              <option value="600000">Up to ₹6.0 Lakhs / yr</option>
+              <option value="800000">Up to ₹8.0 Lakhs / yr (EWS Ceiling)</option>
+            </select>
+          </div>
+
+          <!-- Academic Marks Slider -->
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="font-semibold text-slate-700 dark:text-slate-300" data-i18n="labelPercentage">
+                Academic Percentage (%)
+              </label>
+              <span id="scholarshipMarksValue" class="font-bold text-emerald-600 dark:text-emerald-400">75%</span>
+            </div>
+            <input type="range" id="scholarshipMarksSlider" min="40" max="98" value="75" class="w-full accent-emerald-600 cursor-pointer mt-2" />
+          </div>
+
+          <!-- Category -->
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelCategory">
+              Social Category
+            </label>
+            <select id="scholarshipCategoryFilter" class="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+              <option value="all">All Categories</option>
+              <option value="General">General / Open</option>
+              <option value="OBC">OBC (Non-Creamy Layer)</option>
+              <option value="SC">Scheduled Caste (SC)</option>
+              <option value="ST">Scheduled Tribe (ST)</option>
+              <option value="EWS">Economically Weaker Section (EWS)</option>
+            </select>
+          </div>
+
+          <!-- Gender -->
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelGender">
+              Gender
+            </label>
+            <select id="scholarshipGenderFilter" class="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+              <option value="all">All Genders</option>
+              <option value="Female">Female (Girls only schemes like AICTE Pragati)</option>
+              <option value="Male">Male</option>
+            </select>
+          </div>
+
+          <!-- Domicile State -->
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelState">
+              Domicile State
+            </label>
+            <select id="scholarshipStateFilter" class="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+              <option value="all">All India (Central & National Schemes)</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Telangana">Telangana</option>
+              <option value="Andhra Pradesh">Andhra Pradesh</option>
+              <option value="Delhi">Delhi NCR</option>
+              <option value="Bihar">Bihar</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="West Bengal">West Bengal</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Kerala">Kerala</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Odisha">Odisha</option>
+            </select>
+          </div>
+
+          <!-- Degree Level -->
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelDegree">
+              Course / Degree
+            </label>
+            <select id="scholarshipCourseFilter" class="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+              <option value="all">All Professional Programs</option>
+              <option value="B.Tech/BE" selected>B.Tech / B.E. (Engineering)</option>
+              <option value="Degree/B.Sc/BCA">General Degree (BCA, B.Sc, B.Com)</option>
+              <option value="Diploma">Polytechnic / Diploma</option>
+              <option value="Postgrad/M.Tech">Postgraduate (M.Tech, MBA)</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Scholarships Result Count Bar -->
+      <div class="flex items-center justify-between">
+        <div class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <span data-i18n="eligibleScholarshipsCount">Scholarships Matching Your Profile</span>
+          <span id="eligibleScholarshipsCountBadge" class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold">
+            0 Matches
+          </span>
+        </div>
+      </div>
+
+      <!-- Cards Grid -->
+      <div id="scholarshipCardsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Dynamically rendered via scholarshipEngine.js -->
+      </div>
+
+      <!-- ======================================================================= -->
+      <!-- AI SOP CO-PILOT MODAL / FORM                                            -->
+      <!-- ======================================================================= -->
+      <div id="sopGeneratorModal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="glass-card rounded-3xl w-full max-w-3xl p-6 sm:p-8 space-y-6 my-8 border border-slate-200 dark:border-slate-700 shadow-2xl relative">
+          
+          <button id="closeSOPModalBtn" class="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+
+          <div>
+            <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">AI Statement of Purpose (SOP) Co-Pilot</div>
+            <h3 id="sopModalScholarshipTitle" class="text-xl font-bold text-slate-900 dark:text-white mt-1">
+              Target Scholarship
+            </h3>
+            <p id="sopModalTipsText" class="text-xs text-slate-500 dark:text-slate-400 mt-1 italic"></p>
+          </div>
+
+          <div class="space-y-4 text-xs">
+            <div>
+              <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="sopBackgroundLabel">
+                1. Family & Socio-Economic Story (1-2 lines):
+              </label>
+              <textarea id="sopBackgroundInput" rows="2" class="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white" placeholder="e.g. Father is a farmer supporting 5 family members, first in family to attend an engineering college..."></textarea>
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="sopAchievementLabel">
+                2. Academic Achievements & Technical Projects (1-2 lines):
+              </label>
+              <textarea id="sopAchievementInput" rows="2" class="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white" placeholder="e.g. Scored 88% in 12th, built a low-cost IoT irrigation telemetry device for local village farmers..."></textarea>
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="sopVisionLabel">
+                3. Future Career Vision & Community Impact (1-2 lines):
+              </label>
+              <textarea id="sopVisionInput" rows="2" class="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white" placeholder="e.g. Aspire to become an AI engineer and establish free STEM coaching for students from my native district..."></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="sopToneLabel">
+                  Writing Tone:
+                </label>
+                <select id="sopToneSelector" class="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">
+                  <option value="formal">Academic & Formal (Recommended for Committees)</option>
+                  <option value="inspiring">Resilient & Inspiring (Emphasize Grit)</option>
+                  <option value="merit">High-Impact Merit & Tech Leadership</option>
+                </select>
+              </div>
+
+              <div class="flex items-end">
+                <button id="generateSOPBtn" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold transition flex items-center justify-center gap-1.5 shadow-md">
+                  <i data-lucide="sparkles" class="w-4 h-4"></i>
+                  <span data-i18n="btnGenerateSOP">Generate Formal SOP</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Output Letter -->
+            <div id="sopOutputContainer" class="hidden space-y-3 pt-3 border-t border-slate-200 dark:border-slate-800">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-slate-900 dark:text-white">✨ Generated SOP Draft:</span>
+                <div class="flex items-center gap-2">
+                  <button id="copySOPBtn" class="px-3 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 hover:underline font-semibold flex items-center gap-1">
+                    <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy
+                  </button>
+                  <button id="downloadSOPBtn" class="px-3 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 hover:underline font-semibold flex items-center gap-1">
+                    <i data-lucide="download" class="w-3.5 h-3.5"></i> Download (.txt)
+                  </button>
+                </div>
+              </div>
+              <textarea id="generatedSOPText" rows="10" class="w-full p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white font-serif leading-relaxed text-xs"></textarea>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 4: KILLER FEATURE #3 - INTERACTIVE AI MOCK INTERVIEWER            -->
+    <!-- ========================================================================= -->
+    <section id="section-mock" class="hidden space-y-8">
+      
+      <!-- Section Header -->
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800/60 mb-2">
+          <span>Killer Feature #3</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-black font-display text-slate-900 dark:text-white" data-i18n="mockTitle">
+          Interactive AI Mock Interviewer with Live Scorecard
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1" data-i18n="mockSubtitle">
+          Real-time technical and behavioral interview simulation for top Indian companies with voice read-aloud, instant feedback, and detailed scoring.
+        </p>
+      </div>
+
+      <!-- VIEW 1: Role Setup -->
+      <div id="mockSetupCard" class="glass-card rounded-3xl p-6 sm:p-8 space-y-6 max-w-2xl mx-auto">
+        <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+            <i data-lucide="bot" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">Configure Your Mock Interview Room</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Randomized 5-6 questions with live speech and instant scorecard.</p>
+          </div>
+        </div>
+
+        <div class="space-y-4 text-xs">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1" data-i18n="selectMockCompany">
+              Target Company
+            </label>
+            <select id="mockCompanySelect" class="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500">
+              <!-- Dynamically populated -->
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1" data-i18n="selectMockRole">
+              Target Role
+            </label>
+            <select id="mockRoleSelect" class="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500">
+              <!-- Dynamically populated -->
+            </select>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50 text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+            <div class="font-bold text-indigo-700 dark:text-indigo-300 flex items-center gap-1.5">
+              <i data-lucide="info" class="w-4 h-4"></i>
+              Session Rules:
+            </div>
+            <ul class="list-disc list-inside space-y-0.5 text-slate-600 dark:text-slate-400">
+              <li>Includes tailored 'Tell Me About Yourself' pitch diagnostic as Question #1.</li>
+              <li>Realistic voice speaks questions aloud (Speech Synthesis).</li>
+              <li>Answer via typing or clicking microphone for voice input.</li>
+              <li>Instant comprehensive scorecard upon completion.</li>
+            </ul>
+          </div>
+
+          <button id="startMockInterviewBtn" class="glow-button w-full py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+            <i data-lucide="play" class="w-4 h-4"></i>
+            <span data-i18n="btnStartInterview">Start Live Interview</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW 2: Active Interview Room -->
+      <div id="mockInterviewRoom" class="hidden glass-card rounded-3xl p-6 sm:p-8 space-y-6 max-w-3xl mx-auto">
+        
+        <!-- Interview Room Header & Status -->
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div>
+            <div id="mockPanelRoleTitle" class="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">
+              Technical Panel
+            </div>
+            <div class="text-sm font-semibold text-slate-500 dark:text-slate-400 mt-0.5">
+              Question <span id="mockCurrentQNumber" class="text-slate-900 dark:text-white font-bold">1</span> of <span id="mockTotalQCount">6</span>
+            </div>
+          </div>
+
+          <!-- Live Timer Display -->
+          <div class="flex items-center gap-2">
+            <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 font-mono text-xs font-bold text-slate-700 dark:text-slate-200">
+              <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+              <span id="mockTimerDisplay">03:00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Avatar & Speech Wave Box -->
+        <div class="p-5 rounded-2xl bg-gradient-to-r from-purple-50/60 to-indigo-50/60 dark:from-purple-950/20 dark:to-indigo-950/20 border border-purple-100 dark:border-purple-900/50 space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold">
+                AI
+              </div>
+              <div>
+                <div class="text-xs font-bold text-slate-900 dark:text-white" data-i18n="interviewerName">
+                  AI Interviewer (Senior Tech Panel)
+                </div>
+                <div id="mockQuestionCategory" class="text-[10px] text-purple-600 dark:text-purple-400 font-semibold uppercase">
+                  Technical Architecture
+                </div>
+              </div>
+            </div>
+
+            <!-- Voice Controls -->
+            <div class="flex items-center gap-2">
+              <div class="flex items-center gap-1 px-2 py-1">
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+              </div>
+              <button id="listenQuestionBtn" class="p-1.5 rounded-lg border border-purple-200 dark:border-purple-800 hover:bg-purple-100 dark:hover:bg-purple-900 text-purple-600 dark:text-purple-300 text-xs font-semibold flex items-center gap-1" title="Read Question Aloud">
+                <i data-lucide="volume-2" class="w-3.5 h-3.5"></i> Hear
+              </button>
+            </div>
+          </div>
+
+          <!-- Question Prompt -->
+          <p id="mockQuestionText" class="text-sm sm:text-base font-semibold text-slate-800 dark:text-slate-100 leading-relaxed pt-1">
+            Question text loading...
+          </p>
+
+          <!-- Hint Box (Hidden by default) -->
+          <div id="mockHintBox" class="hidden p-3 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/60 text-xs text-amber-800 dark:text-amber-300">
+            <strong>💡 Technical Clue / Hint:</strong> <span id="mockHintText"></span>
+          </div>
+        </div>
+
+        <!-- Student Answer Area -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-slate-700 dark:text-slate-300" data-i18n="yourAnswerLabel">
+              Your Response
+            </label>
+            <div class="flex items-center gap-3">
+              <span id="mockAnswerWordCount" class="text-[11px] text-slate-400 font-mono">0 words</span>
+              <!-- Mic Toggle Button -->
+              <button id="micToggleBtn" class="px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold flex items-center gap-1.5 transition">
+                <i data-lucide="mic" class="w-3.5 h-3.5 text-purple-500"></i>
+                <span id="micStatusText">Voice Input</span>
+              </button>
+            </div>
+          </div>
+
+          <textarea 
+            id="mockAnswerInput" 
+            rows="6" 
+            placeholder="Type your response or click Voice Input to speak using your microphone..."
+            data-i18n-placeholder="answerPlaceholder"
+            class="w-full p-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 leading-relaxed"
+          ></textarea>
+        </div>
+
+        <!-- Action Row -->
+        <div class="flex items-center justify-between pt-2">
+          <button id="askHintBtn" class="text-xs text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 font-semibold flex items-center gap-1">
+            <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
+            <span data-i18n="btnGetHint">Ask for a Clue / Hint</span>
+          </button>
+
+          <button id="submitMockAnswerBtn" class="px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs transition flex items-center gap-1.5 shadow-md">
+            <span data-i18n="btnSubmitAnswer">Submit Answer & Proceed</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- VIEW 3: Scorecard View -->
+      <div id="mockScorecardView" class="hidden space-y-8 max-w-4xl mx-auto">
+        <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+          
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
+            <div>
+              <div class="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider" data-i18n="scorecardTitle">Official Scorecard</div>
+              <h3 id="scorecardRoleHeading" class="text-xl font-bold text-slate-900 dark:text-white mt-0.5">
+                Target Role
+              </h3>
+            </div>
+            <div id="scorecardVerdictBadge" class="px-4 py-1.5 rounded-full text-xs font-bold">
+              Simulated Hiring Verdict
+            </div>
+          </div>
+
+          <!-- Key Metrics Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+            <div class="p-4 rounded-2xl bg-purple-50/60 dark:bg-purple-950/20 border border-purple-100 dark:border-purple-900/40">
+              <div id="scorecardOverallScore" class="text-2xl font-black text-purple-600 dark:text-purple-400">8.2 / 10</div>
+              <div class="text-[11px] text-slate-500 font-semibold mt-1">Overall Rating</div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/40">
+              <div id="scorecardTechScore" class="text-2xl font-black text-indigo-600 dark:text-indigo-400">8.0 / 10</div>
+              <div class="text-[11px] text-slate-500 font-semibold mt-1" data-i18n="techAccuracy">Technical Accuracy</div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-pink-50/60 dark:bg-pink-950/20 border border-pink-100 dark:border-pink-900/40">
+              <div id="scorecardArtScore" class="text-2xl font-black text-pink-600 dark:text-pink-400">8.5 / 10</div>
+              <div class="text-[11px] text-slate-500 font-semibold mt-1" data-i18n="articulation">Articulation</div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/40">
+              <div id="scorecardProbScore" class="text-2xl font-black text-emerald-600 dark:text-emerald-400">8.1 / 10</div>
+              <div class="text-[11px] text-slate-500 font-semibold mt-1" data-i18n="problemSolving">Problem Solving</div>
+            </div>
+          </div>
+
+          <!-- Buttons: Save to Dashboard & Retake -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+            <button id="saveScorecardToDashboardBtn" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition flex items-center gap-1.5 shadow-sm">
+              <i data-lucide="bookmark" class="w-4 h-4"></i>
+              <span data-i18n="btnSaveScorecard">Save to Student Dashboard</span>
+            </button>
+
+            <button id="retakeInterviewBtn" class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs transition flex items-center gap-1.5">
+              <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+              <span data-i18n="btnRetakeInterview">Practice Another Role</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Question-by-Question Deep Dive List -->
+        <div class="space-y-4">
+          <h4 class="text-base font-bold text-slate-900 dark:text-white">Detailed Question Breakdown & Ideal Answers:</h4>
+          <div id="scorecardQuestionsList" class="space-y-4">
+            <!-- Dynamically populated via mockInterviewer.js -->
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 5: STUDENT DASHBOARD                                             -->
+    <!-- ========================================================================= -->
+    <section id="section-dashboard" class="hidden space-y-8">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-black font-display text-slate-900 dark:text-white" data-i18n="dashboardTitle">
+            Student Command Dashboard
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1" data-i18n="dashboardSubtitle">
+            Track your career preparedness, saved scholarships, resume scans, and mock interview performance.
+          </p>
+        </div>
+
+        <button id="clearDashboardDataBtn" class="text-xs text-rose-500 hover:text-rose-700 font-semibold p-2 border border-rose-200 dark:border-rose-900/60 rounded-xl">
+          Reset History
+        </button>
+      </div>
+
+      <!-- Quick Profile Stats Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <div class="glass-card rounded-2xl p-5">
+          <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="statTargetRole">Target Career</div>
+          <div id="dashStatTargetCompany" class="text-base font-bold text-slate-900 dark:text-white mt-1">TCS Prime</div>
+          <div id="dashStatTargetRole" class="text-xs text-indigo-600 dark:text-indigo-400 font-medium">Systems Engineer</div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5">
+          <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="statReadiness">Dream Career Readiness</div>
+          <div id="dashStatReadinessScore" class="text-2xl font-black text-emerald-600 dark:text-emerald-400 mt-1">72%</div>
+          <div class="text-[10px] text-slate-400 font-medium">Weighted placement index</div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5">
+          <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="statSavedScholarships">Saved Scholarships</div>
+          <div id="dashStatSavedSchCount" class="text-2xl font-black text-indigo-600 dark:text-indigo-400 mt-1">0</div>
+          <div class="text-[10px] text-slate-400 font-medium">Active funding deadlines</div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5">
+          <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="statInterviewsTaken">Mock Tests Taken</div>
+          <div id="dashStatMocksCount" class="text-2xl font-black text-purple-600 dark:text-purple-400 mt-1">0</div>
+          <div class="text-[10px] text-slate-400 font-medium">Completed tech panels</div>
+        </div>
+
+      </div>
+
+      <!-- Dashboard Subtabs Navigation -->
+      <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+        <div class="flex items-center gap-4 border-b border-slate-100 dark:border-slate-800 text-xs font-bold">
+          <button class="dashboard-subtab-btn active pb-3 border-b-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 transition" data-subtab="scholarships">
+            Bookmarked Scholarships
+          </button>
+          <button class="dashboard-subtab-btn pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white transition" data-subtab="scans">
+            Resume Scans History
+          </button>
+          <button class="dashboard-subtab-btn pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white transition" data-subtab="mocks">
+            Mock Interview Scorecards
+          </button>
+        </div>
+
+        <!-- Subtab 1: Scholarships -->
+        <div id="subtab-scholarships" class="dashboard-subtab-content">
+          <div id="dashSavedScholarshipsList">
+            <!-- Dynamically populated via dashboard.js -->
+          </div>
+        </div>
+
+        <!-- Subtab 2: Resume Scans -->
+        <div id="subtab-scans" class="dashboard-subtab-content hidden">
+          <div id="dashResumeScansList">
+            <!-- Dynamically populated via dashboard.js -->
+          </div>
+        </div>
+
+        <!-- Subtab 3: Mocks -->
+        <div id="subtab-mocks" class="dashboard-subtab-content hidden">
+          <div id="dashMockHistoryList">
+            <!-- Dynamically populated via dashboard.js -->
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- FOOTER (Prominent Founder Attribution)                                    -->
+  <!-- ========================================================================= -->
+  <footer class="mt-auto w-full border-t border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-950/60 backdrop-blur py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+      
+      <!-- Brand & Founder Badge -->
+      <div>
+        <div class="text-sm font-extrabold text-slate-900 dark:text-white flex items-center justify-center md:justify-start gap-2">
+          <span>Margdarshak AI</span>
+          <span class="text-xs font-normal text-slate-400">| SIH 2024 Edition</span>
+        </div>
+        <!-- EXPLICIT FOUNDER ATTRIBUTION REQUIRED IN PROMPT -->
+        <div class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold mt-1">
+          Margdarshak AI — Founded & Developed with ❤️ by Mehak | SIH 2024 Edition
+        </div>
+      </div>
+
+      <!-- Quick Jumps -->
+      <div class="flex items-center gap-6 text-xs text-slate-500 dark:text-slate-400 font-medium">
+        <a href="#gap" data-nav-target="gap" class="hover:text-indigo-600 transition">Resume Gap</a>
+        <a href="#scholarship" data-nav-target="scholarship" class="hover:text-indigo-600 transition">Scholarships</a>
+        <a href="#mock" data-nav-target="mock" class="hover:text-indigo-600 transition">AI Mock Interview</a>
+        <a href="#dashboard" data-nav-target="dashboard" class="hover:text-indigo-600 transition">Dashboard</a>
+      </div>
+
+      <!-- Cloud Database & Low Bandwidth Indicator -->
+      <div class="flex items-center justify-center md:justify-end gap-3 text-xs">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          Cloud DB: Connected (Supabase / MongoDB Ready)
+        </span>
+        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-medium">
+          ⚡ 2G/3G PWA Offline
+        </span>
+      </div>
+
+      <!-- Copyright -->
+      <div class="text-[11px] text-slate-400">
+        &copy; 2026 Margdarshak AI. Built for 10M+ Indian engineering & degree aspirants.
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP SHARE ACTION BUTTON -->
+  <aside aria-label="Quick Actions" class="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2">
+    <button id="floatingShareBtn" class="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold text-xs shadow-lg shadow-emerald-600/30 hover:shadow-emerald-600/50 hover:scale-105 transition-all duration-200 cursor-pointer">
+      <div class="relative">
+        <i data-lucide="share-2" class="w-4 h-4"></i>
+        <span class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+      </div>
+      <span>Share with Batch 🚀</span>
+    </button>
+  </aside>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL 1: STUDENT AUTH & MULTI-USER PROFILES                              -->
+  <!-- ========================================================================= -->
+  <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md hidden">
+    <div class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl p-6 sm:p-8 space-y-5">
+      
+      <!-- Close Button -->
+      <button id="closeAuthModalBtn" class="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="text-center space-y-1.5">
+        <div class="w-12 h-12 mx-auto rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 text-white flex items-center justify-center shadow-lg shadow-indigo-500/25">
+          <i data-lucide="user-check" class="w-6 h-6"></i>
+        </div>
+        <h3 class="text-xl font-black tracking-tight text-slate-900 dark:text-white">Student Portal</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400">Save roadmaps, track mock interviews & sync across devices</p>
+      </div>
+
+      <!-- Tab Switcher -->
+      <div class="flex border-b border-slate-200 dark:border-slate-800 text-xs font-bold">
+        <button id="authTabBtnLogin" class="flex-1 py-2.5 text-center border-b-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 transition cursor-pointer">
+          Sign In
+        </button>
+        <button id="authTabBtnRegister" class="flex-1 py-2.5 text-center border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition cursor-pointer">
+          Create Account
+        </button>
+      </div>
+
+      <!-- Notification Banner -->
+      <div id="authModalNotice" class="hidden"></div>
+
+      <!-- Sign In Pane -->
+      <div id="authPaneLogin" class="space-y-4">
+        <form id="studentLoginForm" class="space-y-3.5">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">College / Personal Email</label>
+            <input type="email" id="authLoginEmail" required placeholder="student@margdarshak.edu.in" class="w-full px-3.5 py-2 rounded-xl text-sm bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Password</label>
+            <input type="password" id="authLoginPassword" required placeholder="••••••••" class="w-full px-3.5 py-2 rounded-xl text-sm bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+          </div>
+          <button type="submit" id="authLoginSubmitBtn" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md shadow-indigo-600/30 transition cursor-pointer">
+            Sign In to Margdarshak
+          </button>
+        </form>
+
+        <!-- Quick 1-Click Demo Profiles -->
+        <div class="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-2">
+          <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider text-center">⚡ Instant 1-Click Demo Logins</div>
+          <div class="grid grid-cols-2 gap-2">
+            <button id="authDemoRahulBtn" type="button" class="p-2 rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-950/40 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 text-left transition cursor-pointer">
+              <div class="text-xs font-bold text-slate-900 dark:text-white">Rahul Sharma</div>
+              <div class="text-[10px] text-slate-500">AKTU • TCS Prime</div>
+            </button>
+            <button id="authDemoPriyaBtn" type="button" class="p-2 rounded-xl border border-purple-200 dark:border-purple-800 bg-purple-50/50 dark:bg-purple-950/40 hover:bg-purple-100 dark:hover:bg-purple-900/50 text-left transition cursor-pointer">
+              <div class="text-xs font-bold text-slate-900 dark:text-white">Priya Patel</div>
+              <div class="text-[10px] text-slate-500">GTU • Flipkart 18 LPA</div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Register Pane -->
+      <div id="authPaneRegister" class="space-y-4 hidden">
+        <form id="studentRegisterForm" class="space-y-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Full Name</label>
+            <input type="text" id="authRegName" required placeholder="e.g. Ananya Gupta" class="w-full px-3.5 py-2 rounded-xl text-sm bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email</label>
+              <input type="email" id="authRegEmail" required placeholder="ananya@college.edu" class="w-full px-3.5 py-2 rounded-xl text-sm bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Password</label>
+              <input type="password" id="authRegPassword" required placeholder="••••••••" class="w-full px-3.5 py-2 rounded-xl text-sm bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">College / University</label>
+            <input type="text" id="authRegCollege" placeholder="e.g. AKTU, VTU, Anna University, GTU, DU..." class="w-full px-3.5 py-2 rounded-xl text-sm bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Dream Company</label>
+              <input type="text" id="authRegCompany" placeholder="e.g. TCS, Amazon, Google" class="w-full px-3.5 py-2 rounded-xl text-sm bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Target Role</label>
+              <input type="text" id="authRegRole" placeholder="e.g. SDE-1, Data Analyst" class="w-full px-3.5 py-2 rounded-xl text-sm bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+            </div>
+          </div>
+          <button type="submit" id="authRegSubmitBtn" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold text-sm shadow-md transition mt-2 cursor-pointer">
+            Create Free Student Account
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL 2: WHATSAPP & SOCIAL VIRAL SHARING                                 -->
+  <!-- ========================================================================= -->
+  <div id="shareModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md hidden">
+    <div class="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl p-6 sm:p-8 space-y-5">
+      
+      <!-- Close Button -->
+      <button id="closeShareModalBtn" class="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="text-center space-y-1.5">
+        <div class="w-12 h-12 mx-auto rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-600 text-white flex items-center justify-center shadow-lg shadow-emerald-500/25">
+          <i data-lucide="share-2" class="w-6 h-6"></i>
+        </div>
+        <h3 class="text-xl font-black tracking-tight text-slate-900 dark:text-white">Share Margdarshak AI</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400">Help your college batchmates get dream placement & scholarship ready!</p>
+      </div>
+
+      <!-- Pre-filled Message Preview -->
+      <div class="space-y-1.5">
+        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300">WhatsApp College Group Forward Message:</label>
+        <div class="p-3.5 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60 text-xs text-slate-800 dark:text-slate-200 font-mono leading-relaxed select-all">
+          🚀 <span class="font-bold">Check out Margdarshak AI (SIH 2024 Edition) — Created by Mehak!</span><br>
+          From Classroom to Dream Career — 100% Free for Tier-2 & Tier-3 students:<br>
+          • 🎯 60+ Indian tech companies resume gap analysis (TCS, Google, Infosys)<br>
+          • 💰 25+ verified scholarships with AI SOP Writer<br>
+          • 🎙️ Live voice AI mock interviewer with scorecard<br>
+          Try it here: <span id="shareMessageLink" class="text-indigo-600 dark:text-indigo-400 underline font-semibold"></span>
+        </div>
+      </div>
+
+      <!-- Share Action Buttons -->
+      <div class="space-y-2.5">
+        <!-- 1-Click WhatsApp Button -->
+        <a id="btnShareWhatsApp" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30 transition cursor-pointer">
+          <i data-lucide="message-circle" class="w-5 h-5"></i>
+          <span>Share Directly to WhatsApp College Groups</span>
+        </a>
+
+        <!-- Grid of Other Shares -->
+        <div class="grid grid-cols-2 gap-2">
+          <a id="btnShareLinkedIn" target="_blank" rel="noopener noreferrer" class="py-2.5 px-3 rounded-xl border border-blue-500/40 bg-blue-50/50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 font-semibold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
+            <i data-lucide="linkedin" class="w-4 h-4 text-blue-600"></i> LinkedIn Post
+          </a>
+          <a id="btnShareTelegram" target="_blank" rel="noopener noreferrer" class="py-2.5 px-3 rounded-xl border border-sky-500/40 bg-sky-50/50 dark:bg-sky-950/30 text-sky-700 dark:text-sky-300 hover:bg-sky-100 font-semibold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
+            <i data-lucide="send" class="w-4 h-4 text-sky-600"></i> Telegram Channel
+          </a>
+        </div>
+
+        <!-- Copy Link Button -->
+        <button id="btnCopyShareLink" type="button" class="w-full py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
+          <i data-lucide="copy" class="w-4 h-4"></i>
+          <span id="btnCopyShareLinkText">Copy Direct Platform Link</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL 3: GOOGLE GEMINI 1.5 FLASH AI SETTINGS                             -->
+  <!-- ========================================================================= -->
+  <div id="geminiSettingsModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md hidden">
+    <div class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl p-6 sm:p-8 space-y-5">
+      
+      <!-- Close Button -->
+      <button id="closeGeminiModalBtn" class="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="text-center space-y-1.5">
+        <div class="w-12 h-12 mx-auto rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-600 to-pink-500 text-white flex items-center justify-center shadow-lg shadow-indigo-500/25">
+          <i data-lucide="sparkles" class="w-6 h-6"></i>
+        </div>
+        <h3 class="text-xl font-black tracking-tight text-slate-900 dark:text-white">AI Engine Configuration</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400">Google Gemini 1.5 Flash + Margdarshak Hybrid Rule Architecture</p>
+      </div>
+
+      <!-- Engine Status Card -->
+      <div class="p-3.5 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/60 space-y-2">
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-bold text-slate-800 dark:text-slate-200">Active Engine:</span>
+          <span id="geminiActiveStatusPill" class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">
+            Hybrid Offline Ready
+          </span>
+        </div>
+        <p class="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+          Margdarshak AI includes an instant built-in NLP engine for 60+ Indian companies. Adding your Google Gemini API key unlocks unlimited dynamic generative evaluation.
+        </p>
+      </div>
+
+      <!-- API Key Form -->
+      <div class="space-y-3">
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">Google Gemini API Key</label>
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
+              Get Free Key ↗
+            </a>
+          </div>
+          <div class="relative">
+            <input type="password" id="geminiApiKeyInput" placeholder="AIzaSy..." class="w-full px-3.5 py-2 pr-10 rounded-xl text-sm bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-mono focus:ring-2 focus:ring-indigo-500 outline-none">
+            <button type="button" id="toggleGeminiKeyVisibilityBtn" class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer">
+              <i data-lucide="eye" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <div id="geminiSaveNotice" class="hidden"></div>
+
+        <div class="flex gap-2">
+          <button id="btnSaveGeminiKey" type="button" class="flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-600/30 transition cursor-pointer">
+            Save & Test Key
+          </button>
+          <button id="btnClearGeminiKey" type="button" class="py-2.5 px-3 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 font-semibold text-xs transition cursor-pointer">
+            Reset
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data/translations.js"></script>
+  <script src="data/companies.js"></script>
+  <script src="data/scholarships.js"></script>
+  <script src="data/interviewQuestions.js"></script>
+  <script src="js/audioUtils.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/gapAnalyzer.js"></script>
+  <script src="js/scholarshipEngine.js"></script>
+  <script src="js/mockInterviewer.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- Lucide icons runner -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>

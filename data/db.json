@@ -1,0 +1,167 @@
+{
+  "users": [
+    {
+      "id": "usr_demo",
+      "name": "Rahul Sharma",
+      "email": "student@margdarshak.edu.in",
+      "password": "password123",
+      "college": "AKTU (Tier-2 Engineering)",
+      "targetCompany": "Amazon",
+      "targetRole": "SDE-1",
+      "readinessScore": 88,
+      "geminiApiKey": "AIzaSyTestDemoKey123",
+      "createdAt": "2026-09-19T00:00:00.000Z"
+    },
+    {
+      "id": "usr_priya",
+      "name": "Priya Patel",
+      "email": "priya@margdarshak.edu.in",
+      "password": "password123",
+      "college": "GTU Ahmedabad",
+      "targetCompany": "Flipkart",
+      "targetRole": "SDE-1 (Frontend / 18 LPA)",
+      "readinessScore": 84,
+      "geminiApiKey": "",
+      "createdAt": "2026-09-19T00:00:00.000Z"
+    },
+    {
+      "id": "usr_1789795398500",
+      "name": "Ananya Gupta",
+      "email": "ananya@aktu.ac.in",
+      "password": "password123",
+      "college": "AKTU Lucknow",
+      "targetCompany": "Amazon",
+      "targetRole": "SDE-1",
+      "readinessScore": 65,
+      "geminiApiKey": "",
+      "createdAt": "2026-09-19T05:23:18.500Z"
+    }
+  ],
+  "scans": [
+    {
+      "company": "Amazon",
+      "role": "SDE-1",
+      "package": "₹44 LPA",
+      "score": 88,
+      "matchedSkills": [
+        "DSA",
+        "Java",
+        "System Design"
+      ],
+      "missingSkills": [
+        "AWS Lambda"
+      ],
+      "matchedBonus": [
+        "Docker"
+      ],
+      "missingBonus": [
+        "Kubernetes"
+      ],
+      "roadmap": {
+        "phase1": {
+          "title": "AWS Serverless",
+          "goal": "Deploy Lambda",
+          "tasks": []
+        }
+      },
+      "id": "scan_1789795527800",
+      "userId": "usr_demo",
+      "timestamp": "2026-09-19T05:25:27.800Z"
+    },
+    {
+      "id": "scan_1789794078284",
+      "userId": "usr_demo",
+      "date": "19 Sept 2026",
+      "company": "Tata Consultancy Services (TCS)",
+      "role": "Systems Engineer (Prime / 9 LPA)",
+      "package": "₹9.0 - ₹11.5 LPA",
+      "score": 78,
+      "matchedSkills": [
+        "Data Structures & Algorithms",
+        "Java",
+        "SQL & DBMS",
+        "Git"
+      ],
+      "missingSkills": [
+        "Python",
+        "System Design Basics",
+        "Clean Code"
+      ],
+      "matchedBonus": [
+        "Spring Boot"
+      ],
+      "missingBonus": [
+        "Cloud (AWS/Azure)",
+        "Docker",
+        "Microservices",
+        "React.js"
+      ],
+      "roadmap": {
+        "phase1": {
+          "title": "Phase 1: Days 1–5 • Foundational Gaps",
+          "goal": "Master theory and implementation of Python and Clean Code.",
+          "tasks": [
+            "Days 1-2: Theory & LeetCode medium problem patterns for Python.",
+            "Days 3-4: Implement clean, modular code without blackbox libraries.",
+            "Day 5: Review time and space complexity proofs."
+          ]
+        },
+        "phase2": {
+          "title": "Phase 2: Days 6–10 • Capstone Real-world Project",
+          "goal": "Build production-grade application showcasing System Design Basics.",
+          "tasks": [
+            "Days 6-7: Schema design, REST contracts, and Docker setup.",
+            "Days 8-9: Business logic with caching layer (Redis) and connection pooling.",
+            "Day 10: Deploy with live demo and GitHub README."
+          ]
+        },
+        "phase3": {
+          "title": "Phase 3: Days 11–15 • Placement Polishing & STAR Stories",
+          "goal": "Polish resume bullets with metric-backed impact and conduct mock interviews.",
+          "tasks": [
+            "Days 11-12: Rewrite resume bullets using STAR format.",
+            "Days 13-14: Run simulated AI mock interviews on Margdarshak AI.",
+            "Day 15: Final elevator pitch refinement."
+          ]
+        }
+      }
+    }
+  ],
+  "savedScholarships": [
+    {
+      "userId": "usr_demo",
+      "scholarshipId": "reliance_foundation_ug",
+      "title": "Reliance Foundation Undergraduate Scholarship",
+      "amount": "₹2,00,000 across degree",
+      "savedAt": "2026-09-19T05:00:00.000Z"
+    },
+    {
+      "id": "hdfc_parivartan_ecss",
+      "name": "HDFC Badhte Kadam Scholarship",
+      "provider": "Government / CSR",
+      "awardAmount": "₹75,000 / year",
+      "userId": "usr_demo",
+      "status": "Saved",
+      "dateSaved": "19/9/2026"
+    }
+  ],
+  "mockInterviews": [
+    {
+      "role": "SDE-1",
+      "company": "Amazon",
+      "overallRating": 9.2,
+      "feedback": "Excellent STAR responses and complexity analysis.",
+      "id": "mock_1789795527880",
+      "userId": "usr_demo",
+      "timestamp": "2026-09-19T05:25:27.880Z"
+    },
+    {
+      "userId": "usr_demo",
+      "role": "Systems Engineer (Prime / 9 LPA)",
+      "company": "Tata Consultancy Services (TCS)",
+      "date": "19 Sept 2026",
+      "overallRating": 8.5,
+      "feedback": "Strong problem-solving articulation and data structures knowledge. Work on concise answers under 90 seconds."
+    }
+  ]
+}
