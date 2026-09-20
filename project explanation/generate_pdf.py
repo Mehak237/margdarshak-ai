@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Margdarshak AI - Executive Technical Report PDF Generator
+Margdarshak AI - Illustrated Executive Technical Report PDF Generator (Tight 4-Page Layout)
+Includes High-Resolution Diagrams, Architectural Flowcharts & In-Depth System Breakdown
 Created for Founder Mehak | Smart India Hackathon (SIH 2024 Edition)
 """
 
@@ -11,14 +12,13 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, 
-    KeepTogether, HRFlowable
+    KeepTogether, HRFlowable, Image, PageBreak
 )
 from reportlab.pdfgen import canvas
 
-PDF_OUTPUT_PATH = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)),
-    "Margdarshak AI report.pdf"
-)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DIAGRAMS_DIR = os.path.join(BASE_DIR, "diagrams")
+PDF_OUTPUT_PATH = os.path.join(BASE_DIR, "Margdarshak AI report.pdf")
 
 class NumberedCanvas(canvas.Canvas):
     """Canvas that computes total pages dynamically for 'Page X of Y' footers."""
@@ -34,83 +34,82 @@ class NumberedCanvas(canvas.Canvas):
         num_pages = len(self._saved_page_states)
         for state in self._saved_page_states:
             self.__dict__.update(state)
-            self.draw_page_number(num_pages)
+            self.draw_page_decorations(num_pages)
             super().showPage()
         super().save()
 
-    def draw_page_number(self, page_count):
+    def draw_page_decorations(self, page_count):
         self.saveState()
-        self.setFont("Helvetica", 8)
+        self.setFont("Helvetica", 7.5)
         self.setFillColor(colors.HexColor("#64748B"))
         
         # Header (pages > 1)
         if self._pageNumber > 1:
-            self.drawString(40, 810, "Margdarshak AI — Technical Project & Architecture Report")
-            self.drawRightString(A4[0] - 40, 810, "Created by Mehak | SIH 2024 Edition")
+            self.drawString(36, 814, "Margdarshak AI — Comprehensive Technical Project & System Architecture Report")
+            self.drawRightString(A4[0] - 36, 814, "Created by Mehak | SIH 2024 Edition")
             self.setStrokeColor(colors.HexColor("#CBD5E1"))
             self.setLineWidth(0.5)
-            self.line(40, 804, A4[0] - 40, 804)
+            self.line(36, 808, A4[0] - 36, 808)
 
         # Footer (all pages)
         self.setStrokeColor(colors.HexColor("#CBD5E1"))
         self.setLineWidth(0.5)
-        self.line(40, 36, A4[0] - 40, 36)
+        self.line(36, 32, A4[0] - 36, 32)
         
         footer_text_left = "Margdarshak AI • Live Platform: margdarshak-ai-khaki.vercel.app"
-        self.drawString(40, 24, footer_text_left)
+        self.drawString(36, 22, footer_text_left)
         
         page_str = f"Page {self._pageNumber} of {page_count}"
-        self.drawRightString(A4[0] - 40, 24, page_str)
+        self.drawRightString(A4[0] - 36, 22, page_str)
         self.restoreState()
 
 def build_pdf():
     doc = SimpleDocTemplate(
         PDF_OUTPUT_PATH,
         pagesize=A4,
-        leftMargin=40,
-        rightMargin=40,
-        topMargin=50,
-        bottomMargin=50
+        leftMargin=36,
+        rightMargin=36,
+        topMargin=40,
+        bottomMargin=40
     )
 
     styles = getSampleStyleSheet()
     
-    # Custom Palette
+    # Custom Colors
     c_primary = colors.HexColor("#312E81")     # Indigo-900
     c_accent = colors.HexColor("#4F46E5")      # Indigo-600
     c_dark = colors.HexColor("#0F172A")        # Slate-900
     c_body = colors.HexColor("#334155")        # Slate-700
     c_light_bg = colors.HexColor("#F8FAFC")    # Slate-50
     c_border = colors.HexColor("#CBD5E1")      # Slate-300
-    c_green = colors.HexColor("#16A34A")       # Green-600
+    c_green = colors.HexColor("#10B981")       # Emerald-500
 
     title_style = ParagraphStyle(
         'CoverTitle',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=24,
-        leading=28,
+        fontSize=20,
+        leading=23,
         textColor=colors.white,
-        alignment=0,
-        spaceAfter=4
+        spaceAfter=2
     )
 
     subtitle_style = ParagraphStyle(
         'CoverSubtitle',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=11,
-        leading=14,
+        fontSize=9.5,
+        leading=12,
         textColor=colors.HexColor("#E0E7FF"),
-        spaceAfter=10
+        spaceAfter=6
     )
 
     meta_style = ParagraphStyle(
         'CoverMeta',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=8.5,
-        leading=12,
+        fontSize=7.5,
+        leading=10,
         textColor=colors.white
     )
 
@@ -118,11 +117,11 @@ def build_pdf():
         'Heading1_Custom',
         parent=styles['Heading1'],
         fontName='Helvetica-Bold',
-        fontSize=12.5,
-        leading=15,
+        fontSize=11,
+        leading=13.5,
         textColor=c_primary,
-        spaceBefore=12,
-        spaceAfter=5,
+        spaceBefore=7,
+        spaceAfter=3,
         keepWithNext=True
     )
 
@@ -130,11 +129,11 @@ def build_pdf():
         'Heading2_Custom',
         parent=styles['Heading2'],
         fontName='Helvetica-Bold',
-        fontSize=10,
-        leading=13,
+        fontSize=9,
+        leading=11.5,
         textColor=c_accent,
-        spaceBefore=9,
-        spaceAfter=3,
+        spaceBefore=6,
+        spaceAfter=2,
         keepWithNext=True
     )
 
@@ -142,10 +141,10 @@ def build_pdf():
         'Body_Custom',
         parent=styles['BodyText'],
         fontName='Helvetica',
-        fontSize=8.5,
-        leading=12.5,
+        fontSize=8,
+        leading=11,
         textColor=c_body,
-        spaceAfter=5,
+        spaceAfter=3.5,
         alignment=4 # Justified
     )
 
@@ -153,20 +152,32 @@ def build_pdf():
         'Bullet_Custom',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=8.5,
-        leading=12,
+        fontSize=7.5,
+        leading=10.5,
         textColor=c_body,
-        leftIndent=14,
-        firstLineIndent=-10,
-        spaceAfter=3
+        leftIndent=11,
+        firstLineIndent=-7,
+        spaceAfter=2
+    )
+
+    caption_style = ParagraphStyle(
+        'Caption_Style',
+        parent=styles['Normal'],
+        fontName='Helvetica-Oblique',
+        fontSize=7,
+        leading=9,
+        textColor=colors.HexColor("#64748B"),
+        alignment=1, # Center
+        spaceBefore=2,
+        spaceAfter=5
     )
 
     callout_style = ParagraphStyle(
         'Callout_Text',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=8.5,
-        leading=12,
+        fontSize=7.5,
+        leading=10.5,
         textColor=c_dark
     )
 
@@ -174,8 +185,8 @@ def build_pdf():
         'TableHeader',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=8.5,
-        leading=11,
+        fontSize=7.5,
+        leading=9.5,
         textColor=colors.white
     )
 
@@ -183,8 +194,8 @@ def build_pdf():
         'TableCell',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=8,
-        leading=10.5,
+        fontSize=7,
+        leading=9,
         textColor=c_dark
     )
 
@@ -192,19 +203,21 @@ def build_pdf():
         'TableCellBold',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=8,
-        leading=10.5,
+        fontSize=7,
+        leading=9,
         textColor=c_primary
     )
 
     story = []
 
-    # 1. HEADER HERO BANNER
+    # =============================================================
+    # PAGE 1: HEADER BANNER, EXECUTIVE SUMMARY, ARCHITECTURE
+    # =============================================================
     header_content = [
-        [Paragraph("<b>SMART INDIA HACKATHON (SIH 2024 EDITION) • OFFICIAL TECHNICAL REPORT</b>", ParagraphStyle('Badge', fontName='Helvetica-Bold', fontSize=8, textColor=colors.HexColor("#FEF08A"), spaceAfter=4))],
-        [Paragraph("MARGDARSHAK AI", title_style)],
+        [Paragraph("<b>SMART INDIA HACKATHON (SIH 2024 EDITION) • OFFICIAL TECHNICAL REPORT</b>", ParagraphStyle('Badge', fontName='Helvetica-Bold', fontSize=7, textColor=colors.HexColor("#FEF08A"), spaceAfter=2))],
+        [Paragraph("MARGDARSHAK AI (मार्गदर्शक AI)", title_style)],
         [Paragraph('"From Classroom to Dream Career — Guided by AI"', subtitle_style)],
-        [HRFlowable(width="100%", thickness=0.8, color=colors.HexColor("#818CF8"), spaceBefore=0, spaceAfter=8)],
+        [HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#818CF8"), spaceBefore=0, spaceAfter=5)],
         [
             Table([
                 [
@@ -213,243 +226,245 @@ def build_pdf():
                 ],
                 [
                     Paragraph("<b>Edition & Track:</b> SIH 2024 Edition", meta_style),
-                    Paragraph("<b>GitHub:</b> github.com/Mehak237/margdarshak-ai", meta_style)
+                    Paragraph("<b>GitHub Source:</b> github.com/Mehak237/margdarshak-ai", meta_style)
                 ]
-            ], colWidths=[240, 260], style=[
+            ], colWidths=[245, 275], style=[
                 ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-                ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
-                ('TOPPADDING', (0, 0), (-1, -1), 2),
+                ('BOTTOMPADDING', (0, 0), (-1, -1), 1),
+                ('TOPPADDING', (0, 0), (-1, -1), 1),
                 ('LEFTPADDING', (0, 0), (-1, -1), 0),
                 ('RIGHTPADDING', (0, 0), (-1, -1), 0),
             ])
         ]
     ]
 
-    header_table = Table(header_content, colWidths=[515])
+    header_table = Table(header_content, colWidths=[523])
     header_table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor("#312E81")),
-        ('LEFTPADDING', (0, 0), (-1, -1), 16),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 16),
-        ('TOPPADDING', (0, 0), (-1, -1), 14),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 12),
+        ('LEFTPADDING', (0, 0), (-1, -1), 12),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 12),
+        ('TOPPADDING', (0, 0), (-1, -1), 10),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 8),
     ]))
     story.append(header_table)
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 6))
 
-    # 2. EXECUTIVE SUMMARY
-    story.append(Paragraph("1. Executive Summary", h1_style))
+    story.append(Paragraph("1. Executive Summary & Ground Realities", h1_style))
     story.append(Paragraph(
-        "In India's higher education ecosystem, over <b>1.5 million engineers and degree graduates</b> enter the job market annually. "
-        "However, national surveys (including the Wheebox India Skills Report) reveal that <b>less than 45% of graduating students from Tier-2 and Tier-3 colleges</b> "
-        "possess industry-ready technical, behavioral, and communication proficiencies. The root cause is an acute <b>information and mentorship divide</b>: "
-        "students lack insight into company-specific ATS expectations, miss out on thousands of crores in unutilized scholarships, and cannot afford expensive private placement coaching.",
+        "Over <b>1.5 million engineers and degree students graduate in India every year</b>. Yet, national employability studies (including the Wheebox India Skills Report) reveal that <b>less than 45% of students from Tier-2 and Tier-3 institutions</b> possess job-ready technical, algorithmic, and conversational proficiencies. This deficit stems from an acute <b>information, guidance, and economic divide</b>: students submit generic resumes lacking company ATS keywords, miss out on thousands of crores in available scholarships, and cannot afford commercial coaching.",
         body_style
     ))
 
     callout_data = [[
         Paragraph(
-            "<b>Core Project Innovation:</b> Margdarshak AI is an end-to-end, zero-cost, browser-based career co-pilot architected and developed by <b>Mehak</b>. "
-            "It bridges this gap through instant <b>Resume vs. Dream Job Gap Analysis</b> across 60+ Indian employers, <b>25+ verified scholarships</b> with an AI Statement of Purpose (SOP) writer, "
-            "<b>real-time interactive voice AI mock interviews</b> with instant scoring, and complete <b>multilingual support in 9 Indian languages</b>.",
+            "<b>The Core Innovation:</b> Architected and engineered by <b>Mehak</b> for SIH 2024, <b>Margdarshak AI</b> is an all-in-one, zero-cost, browser-based career accelerator. It combines client-side NLP heuristics with Google Gemini 1.5 Flash to provide instant <b>Resume vs. Dream Job Gap Analysis across 60+ Indian employers</b>, <b>25+ verified scholarships</b> with an AI Statement of Purpose (SOP) writer, <b>real-time interactive voice mock interviews</b>, and <b>9 Indian languages</b>.",
             callout_style
         )
     ]]
-    callout_tbl = Table(callout_data, colWidths=[515])
+    callout_tbl = Table(callout_data, colWidths=[523])
     callout_tbl.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor("#EEF2FF")),
-        ('LINELEFT', (0, 0), (0, -1), 3.5, colors.HexColor("#4F46E5")),
-        ('LEFTPADDING', (0, 0), (-1, -1), 12),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 12),
-        ('TOPPADDING', (0, 0), (-1, -1), 7),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 7),
+        ('LINELEFT', (0, 0), (0, -1), 3, colors.HexColor("#4F46E5")),
+        ('LEFTPADDING', (0, 0), (-1, -1), 9),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 9),
+        ('TOPPADDING', (0, 0), (-1, -1), 5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
     ]))
     story.append(callout_tbl)
-    story.append(Spacer(1, 6))
+    story.append(Spacer(1, 5))
 
-    # 3. PROBLEM STATEMENT & GROUND REALITIES
-    story.append(Paragraph("2. Problem Statement & Ground Realities in Tier-2/3 Colleges", h1_style))
-    problems = [
-        "<b>1. The Vague Job Description & ATS Trap:</b> Students submit generic resumes lacking company-specific core keywords, leading to automated ATS disqualification before human review.",
-        "<b>2. Massive Scholarship Information Asymmetry:</b> Over Rs. 2,000 Crores in central, state, and corporate scholarship funds go unused because students are unaware of eligibility or cannot draft strong Statements of Purpose.",
-        "<b>3. Exorbitant Private Coaching Fees:</b> Commercial interview coaching services charge Rs. 1,500 - Rs. 3,000 per session, completely out of reach for students from humble economic backgrounds.",
-        "<b>4. The Linguistic Divide:</b> Standard technical career coaching is almost exclusively in English, triggering severe anxiety among vernacular-speaking students during campus recruitment drives."
-    ]
-    for p in problems:
-        story.append(Paragraph(f"• {p}", bullet_style))
-    story.append(Spacer(1, 6))
-
-    # 4. SYSTEM ARCHITECTURE
-    story.append(Paragraph("3. Technical Architecture & Hybrid Edge Design", h1_style))
+    story.append(Paragraph("2. Full-Stack Hybrid Architecture & Data Flow", h1_style))
     story.append(Paragraph(
-        "Margdarshak AI adopts a <b>Hybrid Edge-First Architecture</b>. It runs 100% client-side by default—delivering <b>0ms cold starts</b>, total student data privacy, and zero operational server costs—while offering progressive cloud enhancement via Google Gemini 1.5 Flash and multi-user database adapters.",
+        "Margdarshak AI uses a <b>Client-First Hybrid Edge Architecture</b>. Browser APIs execute 100% of operations client-side—guaranteeing <b>0ms cold starts</b>, total candidate privacy (PDFs never leave local memory), and zero hosting expenses—while allowing seamless cloud sync with Google Gemini and multi-user databases.",
         body_style
     ))
 
-    arch_rows = [
-        [Paragraph("<b>Component Layer</b>", table_header_style), Paragraph("<b>Technologies Used</b>", table_header_style), Paragraph("<b>Technical Responsibility</b>", table_header_style)],
-        [Paragraph("<b>Frontend UI/UX</b>", table_cell_bold), Paragraph("Vanilla HTML5, Tailwind CSS, Lucide Icons", table_cell_style), Paragraph("Semantic single-page application with responsive dark/light glassmorphism interface.", table_cell_style)],
-        [Paragraph("<b>Resume Engine</b>", table_cell_bold), Paragraph("PDF.js Client-Side Worker", table_cell_style), Paragraph("Extracts text locally in browser memory without sending private CVs to external servers.", table_cell_style)],
-        [Paragraph("<b>Voice Interviewer</b>", table_cell_bold), Paragraph("Web Speech Synthesis & SpeechRecognition API", table_cell_style), Paragraph("Vocalizes questions and captures spoken answers through microphone in real time.", table_cell_style)],
-        [Paragraph("<b>Offline / PWA</b>", table_cell_bold), Paragraph("Service Worker (sw.js) & Web App Manifest", table_cell_style), Paragraph("Caches assets locally for low-bandwidth operation on unstable college networks.", table_cell_style)],
-        [Paragraph("<b>AI Engine</b>", table_cell_bold), Paragraph("Google Gemini 1.5 Flash + Local Heuristics", table_cell_style), Paragraph("Dual-mode: deterministic offline rule engine plus dynamic Gemini generative evaluation.", table_cell_style)],
-        [Paragraph("<b>Backend & Cloud</b>", table_cell_bold), Paragraph("Node.js REST API (server.js) / Supabase / MongoDB", table_cell_style), Paragraph("Cloud database sync for multi-user student profiles and scan history persistence.", table_cell_style)],
-        [Paragraph("<b>Hosting & Edge</b>", table_cell_bold), Paragraph("Vercel Global Edge Network", table_cell_style), Paragraph("Global CDN distribution with automated CI/CD directly from GitHub repository.", table_cell_style)]
-    ]
-    arch_tbl = Table(arch_rows, colWidths=[100, 160, 255])
-    arch_tbl.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#312E81")),
-        ('GRID', (0, 0), (-1, -1), 0.5, c_border),
-        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ('TOPPADDING', (0, 0), (-1, -1), 3.5),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 3.5),
-        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, c_light_bg]),
-    ]))
-    story.append(arch_tbl)
-    story.append(Spacer(1, 8))
+    arch_img_path = os.path.join(DIAGRAMS_DIR, "diagram_architecture.png")
+    if os.path.exists(arch_img_path):
+        story.append(Image(arch_img_path, width=490, height=230))
+        story.append(Paragraph("Figure 1: Full-Stack Hybrid Architecture — Client-First SPA + Progressive Cloud AI", caption_style))
 
-    # 5. CORE MODULES DEEP DIVE (WHAT WAS BUILT BY MEHAK)
-    story.append(Paragraph("4. Core Features Deep Dive — Built by Mehak", h1_style))
-    
-    story.append(Paragraph("4.1 Resume vs. Dream Job Gap Analyzer & 15-Day Roadmap", h2_style))
-    story.append(Paragraph(
-        "• <b>60+ Indian Tech Employers:</b> Encompasses Product Giants (Google, Amazon, Microsoft, Adobe), IT Titans (TCS Ninja & Digital, Infosys SE & DSE, Wipro, Cognizant, LTIMindtree), E-commerce/Unicorns (Flipkart, Swiggy, Zomato, CRED), and Fintech (Goldman Sachs, Morgan Stanley).<br/>"
-        "• <b>Algorithmic ATS Matching:</b> Compares applicant skills against company benchmarks, separating <i>Critical Must-Have Skills</i> from <i>Bonus Competitive Skills</i>.<br/>"
-        "• <b>Dynamic SVG Progress Meter:</b> Real-time SVG circular meter with reactive color grading (Green >=80%, Amber 60-79%, Rose <60%).<br/>"
-        "• <b>Automated 15-Day Action Roadmap:</b> Phase 1 (Days 1-5: Foundation repair), Phase 2 (Days 6-10: Hands-on project building), Phase 3 (Days 11-15: Mock interviews and system design).<br/>"
-        "• <b>Pitch Evaluator:</b> NLP evaluation of candidate's 60-second 'Tell Me About Yourself' elevator pitch.",
-        bullet_style
-    ))
+    story.append(PageBreak())
 
-    story.append(Paragraph("4.2 Smart Scholarship Engine & AI SOP Co-Pilot", h2_style))
+    # =============================================================
+    # PAGE 2: RESUME GAP PIPELINE & SCHOLARSHIP WORKFLOW
+    # =============================================================
+    story.append(Paragraph("3. Feature Deep Dive: Resume vs. Dream Job Gap Analyzer", h1_style))
     story.append(Paragraph(
-        "• <b>25+ Verified Indian Schemes:</b> Curated database including AICTE Pragati (Rs. 50,000/yr for girls), Reliance Foundation (Rs. 2,00,000), Tata Trust, NSP Central Sector, Post-Matric SC/ST, and ONGC Scholars.<br/>"
-        "• <b>6-Dimensional Real-Time Filter:</b> Filters simultaneously by Family Income (Rs. 1.5L to Rs. 8L EWS ceiling), Academic Percentage (40% to 98% slider), Social Category, Gender, Domicile State, and Degree Level.<br/>"
-        "• <b>Committee-Ready AI SOP Co-Pilot:</b> Generates professional 4-paragraph Statements of Purpose tailored to selection committees, emphasizing academic passion, financial resilience, and future commitment to society.",
-        bullet_style
-    ))
-
-    story.append(Paragraph("4.3 Real-Time Voice AI Mock Interviewer with Live Scorecard", h2_style))
-    story.append(Paragraph(
-        "• <b>200+ Company-Specific Question Bank:</b> Mapped to live interview formats of TCS, Infosys, Amazon, etc.<br/>"
-        "• <b>Speech Synthesis (Interviewer Voice):</b> Vocalizes questions aloud using HTML5 Web Speech Synthesis API.<br/>"
-        "• <b>Speech Recognition (Voice Mic Input):</b> Captures candidate speech via microphone, testing live verbal clarity.<br/>"
-        "• <b>10-Point Scorecard Rubric:</b> Evaluates answers on Technical Accuracy (4 pts), Structure (2 pts), STAR Method (2 pts), and Confidence (2 pts), with actionable constructive feedback.",
-        bullet_style
-    ))
-
-    story.append(Paragraph("4.4 Multilingual Support (9 Indian Languages) & PWA Offline Engine", h2_style))
-    story.append(Paragraph(
-        "• <b>9 Indian Languages:</b> Full zero-reload DOM localization in English, Hindi, Hinglish, Tamil, Telugu, Kannada, Bengali, Marathi, and Gujarati.<br/>"
-        "• <b>PWA Offline Mode:</b> Service worker (sw.js) and manifest (manifest.json) allow full offline installation and usage.<br/>"
-        "• <b>1-Click WhatsApp Batch Sharing:</b> Pre-formatted actionable invitation card enabling viral distribution across college batch groups.",
-        bullet_style
-    ))
-    story.append(Spacer(1, 6))
-
-    # 6. MATHEMATICAL SCORING FORMULATION
-    story.append(Paragraph("5. Mathematical ATS Match Formulation", h1_style))
-    story.append(Paragraph(
-        "The match score between candidate resume text and target company profile is calculated using a dual-weighted polynomial:",
+        "The Gap Analyzer bridges the gap between candidate resumes and real-world hiring criteria. It features an integrated database of <b>60+ premier employers in India</b> (Google, Amazon, TCS Ninja/Digital, Infosys DSE, Wipro, Flipkart, Swiggy, Goldman Sachs) categorized into 5 competitive tiers.",
         body_style
     ))
-    
-    math_box = [[
-        Paragraph(
-            "<b>ATS Compatibility Score Formula:</b><br/>"
-            "Score_ATS = [ (Matched_Core_Skills / Total_Core_Skills) x 70% ] + [ (Matched_Bonus_Skills / Total_Bonus_Skills) x 30% ]<br/>"
-            "• <b>Score >= 80% (Green Tier):</b> Placement Ready — Strongly aligned for immediate application.<br/>"
-            "• <b>Score 60% - 79% (Amber Tier):</b> Competitive with Gaps — Requires 5-10 days targeted upskilling.<br/>"
-            "• <b>Score &lt; 60% (Rose Tier):</b> Fundamental Foundations Required — Follow Phase 1 Roadmap.",
-            callout_style
-        )
-    ]]
-    math_tbl = Table(math_box, colWidths=[515])
-    math_tbl.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor("#F0FDF4")),
-        ('LINELEFT', (0, 0), (0, -1), 3.5, c_green),
-        ('LEFTPADDING', (0, 0), (-1, -1), 12),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 12),
-        ('TOPPADDING', (0, 0), (-1, -1), 7),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 7),
-    ]))
-    story.append(math_tbl)
+
+    resume_img_path = os.path.join(DIAGRAMS_DIR, "diagram_resume_pipeline.png")
+    if os.path.exists(resume_img_path):
+        story.append(Image(resume_img_path, width=490, height=170))
+        story.append(Paragraph("Figure 2: Resume Gap Analysis Data Pipeline — From Input to 15-Day Action Roadmap", caption_style))
+
+    story.append(Paragraph(
+        "• <b>Client-Side Text Extraction:</b> Uses an embedded `PDF.js` worker to parse uploaded resumes locally without server upload latency or privacy concerns.<br/>"
+        "• <b>Weighted Dual-Tier ATS Formula:</b> Mathematically weights <b>Core Must-Have Skills (70%)</b> vs. <b>Bonus Edge Skills (30%)</b>.<br/>"
+        "• <b>Animated SVG Radial Score Ring:</b> Calculates exact SVG `stroke-dashoffset` to smoothly animate student readiness from 0% to 100%.<br/>"
+        "• <b>15-Day Personalized Roadmap:</b> Automatically generated 3-phase curriculum: Days 1-5 (Fundamentals & Missing Core Skills), Days 6-10 (Applied Portfolio Project), Days 11-15 (Mock Questions & System Design Prep).<br/>"
+        "• <b>Elevator Pitch Evaluator:</b> NLP diagnostic for candidate's 60-second 'Tell Me About Yourself' opening pitch.",
+        bullet_style
+    ))
     story.append(Spacer(1, 6))
 
-    # 7. CODEBASE & FILE-BY-FILE BREAKDOWN
-    story.append(Paragraph("6. Codebase Structure & File Responsibilities", h1_style))
+    story.append(Paragraph("4. Feature Deep Dive: Smart Scholarship Engine & AI SOP Co-Pilot", h1_style))
+    story.append(Paragraph(
+        "Over <b>Rs. 2,000 Crores</b> in scholarship funds go uncollected annually because students lack discoverability or struggle to draft high-stakes essays. Margdarshak AI solves both problems simultaneously.",
+        body_style
+    ))
+
+    scholar_img_path = os.path.join(DIAGRAMS_DIR, "diagram_scholarship_matrix.png")
+    if os.path.exists(scholar_img_path):
+        story.append(Image(scholar_img_path, width=490, height=170))
+        story.append(Paragraph("Figure 3: Smart Scholarship Multi-Factor Filter & AI Statement of Purpose Co-Pilot Workflow", caption_style))
+
+    story.append(Paragraph(
+        "• <b>25+ Verified Indian Schemes:</b> Real schemes including AICTE Pragati for Girls (Rs. 50,000/yr), Reliance Foundation (Rs. 2,00,000), Tata Trust Medical & Engineering Grants, NSP Central Sector, and Post-Matric SC/ST/OBC.<br/>"
+        "• <b>6-Dimensional Real-Time Filter:</b> Evaluates family income thresholds, academic percentages (40-98% slider), social categories (General/OBC/SC/ST/EWS), gender, state domicile, and degree level.<br/>"
+        "• <b>Committee-Ready 4-Paragraph SOP Writer:</b> Auto-generates eloquent Statements of Purpose articulating academic passion, financial need, technical vision, and societal dedication.",
+        bullet_style
+    ))
+
+    story.append(PageBreak())
+
+    # =============================================================
+    # PAGE 3: VOICE AI MOCK INTERVIEWER & FILE STRUCTURE
+    # =============================================================
+    story.append(Paragraph("5. Feature Deep Dive: Voice AI Mock Interviewer with Live Scorecard", h1_style))
+    story.append(Paragraph(
+        "Commercial coaching platforms charge Rs. 1,500 - Rs. 3,000 per mock session. Margdarshak AI delivers an interactive, voice-driven mock interview simulator 100% free right in the browser.",
+        body_style
+    ))
+
+    mock_img_path = os.path.join(DIAGRAMS_DIR, "diagram_mock_voice.png")
+    if os.path.exists(mock_img_path):
+        story.append(Image(mock_img_path, width=490, height=170))
+        story.append(Paragraph("Figure 4: Bi-Directional Speech Synthesis (TTS) & Speech Recognition (STT) Interview Pipeline", caption_style))
+
+    story.append(Paragraph(
+        "• <b>Speech Synthesis (Voice Interviewer):</b> Vocalizes company-tailored interview questions using the HTML5 `SpeechSynthesisUtterance` API.<br/>"
+        "• <b>Speech-to-Text Recognition:</b> Listens to candidate answers via the browser microphone using `webkitSpeechRecognition`, transcribing speech into structured text.<br/>"
+        "• <b>10-Point Scorecard Rubric:</b> Evaluates answers across Technical Accuracy (4 pts), Clarity & Structure (2 pts), STAR Method Compliance (2 pts), and Delivery Confidence (2 pts), accompanied by actionable constructive improvement pointers.",
+        bullet_style
+    ))
+    story.append(Spacer(1, 6))
+
+    story.append(Paragraph("6. Codebase Architecture & File Responsibilities", h1_style))
+    story.append(Paragraph(
+        "The project is structured with modular separation of concerns across single-page presentation, specialized JavaScript calculation engines, normalized datasets, and edge configurations.",
+        body_style
+    ))
+
+    file_img_path = os.path.join(DIAGRAMS_DIR, "diagram_file_structure.png")
+    if os.path.exists(file_img_path):
+        story.append(Image(file_img_path, width=490, height=225))
+        story.append(Paragraph("Figure 5: Visual Codebase Architecture & Modular File Responsibilities", caption_style))
+
+    story.append(PageBreak())
+
+    # =============================================================
+    # PAGE 4: CODE TABLE, MATHEMATICAL SCORING, IMPACT & CERTIFICATION
+    # =============================================================
+    story.append(Paragraph("7. Codebase Directory Inventory & Mathematical Model", h1_style))
+
     files_data = [
-        [Paragraph("<b>File Path</b>", table_header_style), Paragraph("<b>Module Type</b>", table_header_style), Paragraph("<b>Key Technical Functionality</b>", table_header_style)],
-        [Paragraph("<b>index.html</b>", table_cell_bold), Paragraph("SPA Layout", table_cell_style), Paragraph("Single Page Application UI, responsive navigation, modals, and metric counters.", table_cell_style)],
-        [Paragraph("<b>css/style.css</b>", table_cell_bold), Paragraph("Design Tokens", table_cell_style), Paragraph("Glassmorphism styles, dark/light theme tokens, keyframe animations, glow effects.", table_cell_style)],
-        [Paragraph("<b>js/app.js</b>", table_cell_bold), Paragraph("Master Controller", table_cell_style), Paragraph("Coordinates tab switching, theme toggling, share modals, and Lucide icons.", table_cell_style)],
-        [Paragraph("<b>js/gapAnalyzer.js</b>", table_cell_bold), Paragraph("Gap Engine", table_cell_style), Paragraph("Client-side PDF.js parsing, 60+ company skill matcher, dynamic SVG score ring.", table_cell_style)],
-        [Paragraph("<b>js/scholarshipEngine.js</b>", table_cell_bold), Paragraph("Scholarship Engine", table_cell_style), Paragraph("6-dimensional filter engine and committee-ready 4-paragraph AI SOP co-pilot.", table_cell_style)],
+        [Paragraph("<b>File / Path</b>", table_header_style), Paragraph("<b>Module Role</b>", table_header_style), Paragraph("<b>Key Technical Functionality</b>", table_header_style)],
+        [Paragraph("<b>index.html</b>", table_cell_bold), Paragraph("SPA Markup", table_cell_style), Paragraph("Full semantic single-page application UI, modular sections, navigation, and modals.", table_cell_style)],
+        [Paragraph("<b>css/style.css</b>", table_cell_bold), Paragraph("Styles & Theme", table_cell_style), Paragraph("Custom dark/light glassmorphism design tokens, keyframe animations, and responsive utilities.", table_cell_style)],
+        [Paragraph("<b>js/app.js</b>", table_cell_bold), Paragraph("Master Controller", table_cell_style), Paragraph("Client-side routing, tab coordination, theme switcher, and WhatsApp share handler.", table_cell_style)],
+        [Paragraph("<b>js/gapAnalyzer.js</b>", table_cell_bold), Paragraph("Gap Engine", table_cell_style), Paragraph("Resume text extraction (PDF.js), 60+ company gap matcher, and 15-day roadmap builder.", table_cell_style)],
+        [Paragraph("<b>js/scholarshipEngine.js</b>", table_cell_bold), Paragraph("Scholarship Engine", table_cell_style), Paragraph("Multi-factor scholarship query engine and committee-ready 4-paragraph AI SOP writer.", table_cell_style)],
         [Paragraph("<b>js/mockInterviewer.js</b>", table_cell_bold), Paragraph("Voice Interviewer", table_cell_style), Paragraph("Web Speech API voice synthesis, microphone STT, and 10-point scorecard rubric.", table_cell_style)],
-        [Paragraph("<b>js/auth.js</b>", table_cell_bold), Paragraph("Authentication", table_cell_style), Paragraph("Universal document-delegated authentication, session handling, demo student seeds.", table_cell_style)],
-        [Paragraph("<b>data/companies.js</b>", table_cell_bold), Paragraph("Dataset", table_cell_style), Paragraph("60+ Indian employers mapped across 5 tiers with core and bonus skill taxonomies.", table_cell_style)],
-        [Paragraph("<b>data/scholarships.js</b>", table_cell_bold), Paragraph("Dataset", table_cell_style), Paragraph("25+ verified central, state, and corporate scholarships with eligibility rules.", table_cell_style)],
-        [Paragraph("<b>data/translations.js</b>", table_cell_bold), Paragraph("Localization", table_cell_style), Paragraph("Multilingual key-value dictionary for 9 Indian languages.", table_cell_style)],
-        [Paragraph("<b>server.js</b>", table_cell_bold), Paragraph("Full-Stack API", table_cell_style), Paragraph("Native Node.js REST API with zero external dependencies and cloud DB sync.", table_cell_style)],
-        [Paragraph("<b>sw.js & manifest.json</b>", table_cell_bold), Paragraph("PWA Engine", table_cell_style), Paragraph("Service worker cache-first offline strategy and standalone web app installation.", table_cell_style)],
-        [Paragraph("<b>vercel.json</b>", table_cell_bold), Paragraph("Edge Routing", table_cell_style), Paragraph("Static edge routing configuration for zero-downtime production deployment.", table_cell_style)]
+        [Paragraph("<b>js/auth.js</b>", table_cell_bold), Paragraph("Auth Controller", table_cell_style), Paragraph("Universal document-delegated authentication, session management, and demo seeds.", table_cell_style)],
+        [Paragraph("<b>data/companies.js</b>", table_cell_bold), Paragraph("Dataset", table_cell_style), Paragraph("60+ curated Indian tech companies with core & bonus skill definitions.", table_cell_style)],
+        [Paragraph("<b>data/scholarships.js</b>", table_cell_bold), Paragraph("Dataset", table_cell_style), Paragraph("25+ verified Indian scholarships with live application links and eligibility rules.", table_cell_style)],
+        [Paragraph("<b>data/translations.js</b>", table_cell_bold), Paragraph("Dataset", table_cell_style), Paragraph("Multilingual dictionary for 9 Indian languages (English, Hindi, Hinglish, etc.).", table_cell_style)],
+        [Paragraph("<b>server.js</b>", table_cell_bold), Paragraph("Backend API", table_cell_style), Paragraph("Native Node.js REST API with cloud database support and Gemini proxy.", table_cell_style)],
+        [Paragraph("<b>sw.js & manifest.json</b>", table_cell_bold), Paragraph("PWA Engine", table_cell_style), Paragraph("Service worker offline cache and web app installation manifest.", table_cell_style)],
+        [Paragraph("<b>vercel.json</b>", table_cell_bold), Paragraph("Cloud Config", table_cell_style), Paragraph("Static edge routing and cloud production deployment configuration.", table_cell_style)]
     ]
-    files_tbl = Table(files_data, colWidths=[115, 95, 305])
+    files_tbl = Table(files_data, colWidths=[110, 95, 318])
     files_tbl.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#312E81")),
         ('GRID', (0, 0), (-1, -1), 0.5, c_border),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ('TOPPADDING', (0, 0), (-1, -1), 3),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+        ('TOPPADDING', (0, 0), (-1, -1), 2.5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 2.5),
         ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, c_light_bg]),
     ]))
     story.append(files_tbl)
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 6))
 
-    # 8. SOCIAL IMPACT & FUTURE ROADMAP
-    story.append(Paragraph("7. Social Impact, NEP 2020 Alignment & Future Roadmap", h1_style))
+    story.append(Paragraph("Mathematical ATS Scoring Formulation:", h2_style))
+    math_box = [[
+        Paragraph(
+            "<b>ATS Compatibility Score Formula:</b><br/>"
+            "Score_ATS = [ (Matched_Core_Skills / Total_Core_Skills) x 70% ] + [ (Matched_Bonus_Skills / Total_Bonus_Skills) x 30% ]<br/>"
+            "• <b>Score >= 80% (Green Tier):</b> Ready for Selection — Strongly aligned; ready to apply immediately.<br/>"
+            "• <b>Score 60% - 79% (Amber Tier):</b> Competitive with Gaps — Needs 5-10 days targeted gap closure using roadmap.<br/>"
+            "• <b>Score &lt; 60% (Rose Tier):</b> Fundamental Foundations Required — Complete Phase 1 core curriculum.",
+            callout_style
+        )
+    ]]
+    math_tbl = Table(math_box, colWidths=[523])
+    math_tbl.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor("#F0FDF4")),
+        ('LINELEFT', (0, 0), (0, -1), 3, c_green),
+        ('LEFTPADDING', (0, 0), (-1, -1), 9),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 9),
+        ('TOPPADDING', (0, 0), (-1, -1), 5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
+    ]))
+    story.append(math_tbl)
+    story.append(Spacer(1, 6))
+
+    story.append(Paragraph("8. Social Impact, NEP 2020 Alignment & Project Sign-Off", h1_style))
     story.append(Paragraph(
-        "• <b>NEP 2020 Alignment:</b> Directly furthers national educational directives by replacing theoretical career ambiguity with verified industry skill benchmarks and vernacular accessibility.<br/>"
-        "• <b>Economic Empowerment:</b> Upgrading a candidate from a service baseline (Rs. 3.5 LPA) to a product/digital tier (Rs. 7.5 LPA) increases lifetime earning potential by over Rs. 25 Lakhs per student.<br/>"
-        "• <b>Future Roadmap:</b> Phase 2 (Q4 2026) will introduce a College Placement Officer (TPO) analytics portal and an in-browser DSA code runner. Phase 3 (2027) will add peer-to-peer mock interview rooms.",
+        "• <b>Viksit Bharat 2047 & NEP 2020:</b> Democratizes high-tier placement coaching for 10M+ Indian students in rural and non-metro colleges, breaking linguistic and economic barriers.<br/>"
+        "• <b>Economic ROI:</b> Elevating a candidate from service baseline (Rs. 3.5 LPA) to a product/digital tier (Rs. 7.5 LPA) unlocks over <b>Rs. 25 Lakhs</b> in incremental lifetime earnings.<br/>"
+        "• <b>Women in Tech Empowerment:</b> Actively flags high-value female schemes (AICTE Pragati) to boost gender equity in engineering.",
         bullet_style
     ))
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 8))
 
-    # 9. CERTIFICATION & SIGN-OFF
+    # Certification Block
     signoff_content = [
-        [Paragraph("<b>PROJECT CERTIFICATION & ACADEMIC EVALUATION</b>", ParagraphStyle('SignTitle', fontName='Helvetica-Bold', fontSize=9, textColor=c_primary))],
+        [Paragraph("<b>PROJECT CERTIFICATION & MENTOR EVALUATION</b>", ParagraphStyle('SignTitle', fontName='Helvetica-Bold', fontSize=8, textColor=c_primary))],
         [Paragraph(
-            "This technical report certifies that <b>Margdarshak AI</b> has been fully conceptualized, architected, engineered, and deployed live to production by <b>Mehak</b> as an original technological innovation for the <b>Smart India Hackathon (SIH 2024 Edition)</b>.",
-            ParagraphStyle('SignText', fontName='Helvetica', fontSize=8, leading=11, textColor=c_body, spaceAfter=14)
+            "This technical report certifies that <b>Margdarshak AI</b> has been conceptualized, architected, engineered, and deployed live to production by <b>Mehak</b> as an original technological innovation for the <b>Smart India Hackathon (SIH 2024 Edition)</b>.",
+            ParagraphStyle('SignText', fontName='Helvetica', fontSize=7, leading=9.5, textColor=c_body, spaceAfter=10)
         )],
         [
             Table([
                 [
-                    Paragraph("<b>Mehak</b><br/><font size=7.5 color='#64748B'>Founder & Lead Developer • Margdarshak AI<br/>SIH 2024 Edition</font>", ParagraphStyle('Sign1', fontName='Helvetica', fontSize=8.5, leading=11)),
-                    Paragraph("<b>Faculty / Mentor Signature</b><br/><font size=7.5 color='#64748B'>Academic Project Evaluator / SIH Committee<br/>Institution / Department of Computer Science</font>", ParagraphStyle('Sign2', fontName='Helvetica', fontSize=8.5, leading=11))
+                    Paragraph("<b>Mehak</b><br/><font size=6.5 color='#64748B'>Founder & Lead Developer • Margdarshak AI<br/>SIH 2024 Edition</font>", ParagraphStyle('Sign1', fontName='Helvetica', fontSize=7.5, leading=9)),
+                    Paragraph("<b>Faculty / Mentor Signature</b><br/><font size=6.5 color='#64748B'>Academic Project Evaluator / SIH Committee<br/>Department of Computer Science & Engineering</font>", ParagraphStyle('Sign2', fontName='Helvetica', fontSize=7.5, leading=9))
                 ]
-            ], colWidths=[240, 260], style=[
+            ], colWidths=[245, 275], style=[
                 ('LINEABOVE', (0, 0), (-1, -1), 0.8, colors.HexColor("#94A3B8")),
-                ('TOPPADDING', (0, 0), (-1, -1), 5),
+                ('TOPPADDING', (0, 0), (-1, -1), 3),
                 ('LEFTPADDING', (0, 0), (-1, -1), 0),
                 ('RIGHTPADDING', (0, 0), (-1, -1), 0),
             ])
         ]
     ]
-    signoff_tbl = Table(signoff_content, colWidths=[515])
+    signoff_tbl = Table(signoff_content, colWidths=[523])
     signoff_tbl.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor("#F8FAFC")),
         ('BOX', (0, 0), (-1, -1), 1, colors.HexColor("#CBD5E1")),
-        ('LEFTPADDING', (0, 0), (-1, -1), 12),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 12),
-        ('TOPPADDING', (0, 0), (-1, -1), 10),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 10),
+        ('LEFTPADDING', (0, 0), (-1, -1), 10),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 10),
+        ('TOPPADDING', (0, 0), (-1, -1), 7),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 7),
     ]))
     story.append(KeepTogether(signoff_tbl))
 
     # BUILD DOCUMENT
     doc.build(story, canvasmaker=NumberedCanvas)
-    print(f"SUCCESS: Generated PDF at {PDF_OUTPUT_PATH}")
+    print(f"SUCCESS: Generated illustrated 4-page PDF at {PDF_OUTPUT_PATH}")
 
 if __name__ == "__main__":
     build_pdf()
