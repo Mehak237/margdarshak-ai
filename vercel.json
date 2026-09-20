@@ -1,9 +1,4 @@
 {
-  "cleanUrls": false,
-  "rewrites": [
-    {
-      "source": "/api/health",
-      "destination": "/api/health.js"
-    }
-  ]
+  "framework": null,
+  "cleanUrls": false
 }
