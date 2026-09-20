@@ -572,13 +572,17 @@ const server = http.createServer(async (req, res) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`====================================================`);
-  console.log(`🚀 Margdarshak AI Full-Stack Server is LIVE!`);
-  console.log(`Created by Mehak | SIH 2024 Edition`);
-  console.log(`Web App: http://localhost:${PORT}`);
-  console.log(`API Health: http://localhost:${PORT}/api/health`);
-  console.log(`PWA Manifest: http://localhost:${PORT}/manifest.json`);
-  console.log(`Service Worker: http://localhost:${PORT}/sw.js`);
-  console.log(`====================================================`);
-});
+if (require.main === module) {
+  server.listen(PORT, () => {
+    console.log(`====================================================`);
+    console.log(`🚀 Margdarshak AI Full-Stack Server is LIVE!`);
+    console.log(`Created by Mehak | SIH 2024 Edition`);
+    console.log(`Web App: http://localhost:${PORT}`);
+    console.log(`API Health: http://localhost:${PORT}/api/health`);
+    console.log(`PWA Manifest: http://localhost:${PORT}/manifest.json`);
+    console.log(`Service Worker: http://localhost:${PORT}/sw.js`);
+    console.log(`====================================================`);
+  });
+}
+
+module.exports = { handleApi, server };
