@@ -54,10 +54,10 @@ class MargdarshakApp {
       const target = link.getAttribute('data-nav-target');
       if (target === tabId) {
         link.classList.add('text-indigo-600', 'dark:text-indigo-400', 'font-bold');
-        link.classList.remove('text-slate-600', 'dark:text-slate-300');
+        link.classList.remove('text-slate-600', 'dark:text-slate-300', 'text-slate-500', 'text-slate-400');
       } else {
         link.classList.remove('text-indigo-600', 'dark:text-indigo-400', 'font-bold');
-        link.classList.add('text-slate-600', 'dark:text-slate-300');
+        link.classList.add('text-slate-500', 'dark:text-slate-400');
       }
     });
 

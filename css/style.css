@@ -1,4 +1,4 @@
-/* Margdarshak AI - Custom Styles & Glassmorphism Aesthetics */
+/* Margdarshak AI - Custom Styles, Glassmorphism Aesthetics & Mobile-First Responsive Framework */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap');
 
 :root {
@@ -6,10 +6,18 @@
   --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
 }
 
-body {
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden !important;
   font-family: var(--font-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
 }
 
 h1, h2, h3, .font-display {
@@ -18,8 +26,8 @@ h1, h2, h3, .font-display {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -32,41 +40,50 @@ h1, h2, h3, .font-display {
   background: rgba(99, 102, 241, 0.6);
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Glassmorphism Card Utilities */
 .glass-card {
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  border: 1px solid rgba(226, 232, 240, 0.85);
 }
 .dark .glass-card {
-  background: rgba(15, 23, 42, 0.75);
+  background: rgba(15, 23, 42, 0.82);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(51, 65, 85, 0.6);
 }
 
 .glass-nav {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
 .dark .glass-nav {
-  background: rgba(10, 15, 30, 0.88);
+  background: rgba(10, 15, 30, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
 
-/* Animated Gradient Hero Glow */
+/* Animated Gradient Hero Glow - constrained to 100vw to prevent horizontal scroll */
 .hero-glow-bg {
   position: absolute;
-  top: -150px;
+  top: -100px;
   left: 50%;
   transform: translateX(-50%);
-  width: 800px;
-  height: 500px;
+  width: 100%;
+  max-width: 600px;
+  height: 420px;
   background: radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, rgba(168, 85, 247, 0.12) 40%, rgba(236, 72, 153, 0) 70%);
-  filter: blur(60px);
+  filter: blur(50px);
   pointer-events: none;
   z-index: 0;
 }
@@ -106,4 +123,43 @@ h1, h2, h3, .font-display {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Mobile Safe Areas and Screen Fitting */
+.safe-area-pb {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+@media (max-width: 640px) {
+  .glass-card {
+    border-radius: 1.25rem !important;
+    padding: 1.25rem !important;
+  }
+  
+  /* Prevent automatic iOS zooming on form elements */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  /* Compact button styling on mobile */
+  .glow-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Active navigation item indicator */
+.active-nav-item {
+  color: #4f46e5 !important;
+}
+.dark .active-nav-item {
+  color: #818cf8 !important;
+}
+
+/* Scholarship pill animations */
+.scholarship-pill-btn {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.scholarship-pill-btn:active {
+  transform: scale(0.96);
 }

@@ -1,11 +1,14 @@
 // Margdarshak AI - Killer Feature #2: Smart Scholarship Eligibility Engine & AI SOP Co-Pilot
-// Multi-criteria filter engine matching 25+ Indian schemes, automated document checklist,
-// and tailored committee-ready Statement of Purpose generator.
+// Multi-criteria filter engine matching 25+ Indian schemes, live instant search, 
+// category pills, automated document checklist, and tailored committee-ready Statement of Purpose generator.
 
 class ScholarshipEngine {
   constructor() {
     this.scholarships = [];
     this.selectedScholarshipForSOP = null;
+    this.showOnlyEligible = true; // Default to showing only matching scholarships so filters dynamically update the view!
+    this.searchQuery = '';
+    this.activePill = 'all';
     this.init();
   }
 
@@ -27,6 +30,11 @@ class ScholarshipEngine {
     const stateSelect = document.getElementById('scholarshipStateFilter');
     const courseSelect = document.getElementById('scholarshipCourseFilter');
     const resetBtn = document.getElementById('scholarshipResetFilterBtn');
+    const searchInput = document.getElementById('scholarshipSearchInput');
+
+    // View toggle buttons
+    const btnEligibleOnly = document.getElementById('btnScholarshipEligibleOnly');
+    const btnShowAll = document.getElementById('btnScholarshipShowAll');
 
     if (marksSlider && marksDisplay) {
       marksSlider.addEventListener('input', (e) => {
@@ -39,20 +47,65 @@ class ScholarshipEngine {
       if (el) {
         el.addEventListener('change', () => {
           this.filterScholarships();
+          if (window.audioAssistant) window.audioAssistant.playClick();
         });
       }
     });
 
-    if (resetBtn) {
-      resetBtn.addEventListener('click', () => {
-        if (incomeSelect) incomeSelect.value = "all";
-        if (marksSlider) { marksSlider.value = 60; marksDisplay.textContent = "60%"; }
-        if (categorySelect) categorySelect.value = "all";
-        if (genderSelect) genderSelect.value = "all";
-        if (stateSelect) stateSelect.value = "all";
-        if (courseSelect) courseSelect.value = "all";
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        this.searchQuery = e.target.value.trim().toLowerCase();
+        this.filterScholarships();
+      });
+    }
+
+    // Category Quick Pills
+    document.querySelectorAll('.scholarship-pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.scholarship-pill-btn').forEach(b => {
+          b.classList.remove('active-pill', 'bg-emerald-600', 'text-white', 'border-emerald-600');
+          b.classList.add('bg-white', 'dark:bg-slate-900', 'text-slate-700', 'dark:text-slate-300', 'border-slate-200', 'dark:border-slate-700');
+        });
+        btn.classList.add('active-pill', 'bg-emerald-600', 'text-white', 'border-emerald-600');
+        btn.classList.remove('bg-white', 'dark:bg-slate-900', 'text-slate-700', 'dark:text-slate-300', 'border-slate-200', 'dark:border-slate-700');
+        this.activePill = btn.getAttribute('data-pill') || 'all';
         this.filterScholarships();
         if (window.audioAssistant) window.audioAssistant.playClick();
+      });
+    });
+
+    // Eligible Only vs Show All toggle
+    if (btnEligibleOnly) {
+      btnEligibleOnly.addEventListener('click', () => {
+        this.showOnlyEligible = true;
+        btnEligibleOnly.classList.add('bg-emerald-600', 'text-white', 'shadow-sm');
+        btnEligibleOnly.classList.remove('text-slate-600', 'dark:text-slate-400');
+        if (btnShowAll) {
+          btnShowAll.classList.remove('bg-emerald-600', 'text-white', 'shadow-sm');
+          btnShowAll.classList.add('text-slate-600', 'dark:text-slate-400');
+        }
+        this.filterScholarships();
+        if (window.audioAssistant) window.audioAssistant.playClick();
+      });
+    }
+
+    if (btnShowAll) {
+      btnShowAll.addEventListener('click', () => {
+        this.showOnlyEligible = false;
+        btnShowAll.classList.add('bg-emerald-600', 'text-white', 'shadow-sm');
+        btnShowAll.classList.remove('text-slate-600', 'dark:text-slate-400');
+        if (btnEligibleOnly) {
+          btnEligibleOnly.classList.remove('bg-emerald-600', 'text-white', 'shadow-sm');
+          btnEligibleOnly.classList.add('text-slate-600', 'dark:text-slate-400');
+        }
+        this.filterScholarships();
+        if (window.audioAssistant) window.audioAssistant.playClick();
+      });
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        this.resetFilters();
       });
     }
 
@@ -105,6 +158,41 @@ class ScholarshipEngine {
     }
   }
 
+  resetFilters() {
+    const incomeSelect = document.getElementById('scholarshipIncomeFilter');
+    const marksSlider = document.getElementById('scholarshipMarksSlider');
+    const marksDisplay = document.getElementById('scholarshipMarksValue');
+    const categorySelect = document.getElementById('scholarshipCategoryFilter');
+    const genderSelect = document.getElementById('scholarshipGenderFilter');
+    const stateSelect = document.getElementById('scholarshipStateFilter');
+    const courseSelect = document.getElementById('scholarshipCourseFilter');
+    const searchInput = document.getElementById('scholarshipSearchInput');
+
+    if (incomeSelect) incomeSelect.value = "all";
+    if (marksSlider) { marksSlider.value = 60; }
+    if (marksDisplay) { marksDisplay.textContent = "60%"; }
+    if (categorySelect) categorySelect.value = "all";
+    if (genderSelect) genderSelect.value = "all";
+    if (stateSelect) stateSelect.value = "all";
+    if (courseSelect) courseSelect.value = "all";
+    if (searchInput) searchInput.value = "";
+    this.searchQuery = "";
+    this.activePill = "all";
+
+    document.querySelectorAll('.scholarship-pill-btn').forEach(b => {
+      if (b.getAttribute('data-pill') === 'all') {
+        b.classList.add('active-pill', 'bg-emerald-600', 'text-white', 'border-emerald-600');
+        b.classList.remove('bg-white', 'dark:bg-slate-900', 'text-slate-700', 'dark:text-slate-300');
+      } else {
+        b.classList.remove('active-pill', 'bg-emerald-600', 'text-white', 'border-emerald-600');
+        b.classList.add('bg-white', 'dark:bg-slate-900', 'text-slate-700', 'dark:text-slate-300');
+      }
+    });
+
+    this.filterScholarships();
+    if (window.audioAssistant) window.audioAssistant.playClick();
+  }
+
   filterScholarships() {
     const incomeVal = document.getElementById('scholarshipIncomeFilter')?.value || 'all';
     const marksVal = parseInt(document.getElementById('scholarshipMarksSlider')?.value || '60', 10);
@@ -113,16 +201,56 @@ class ScholarshipEngine {
     const stateVal = document.getElementById('scholarshipStateFilter')?.value || 'all';
     const courseVal = document.getElementById('scholarshipCourseFilter')?.value || 'all';
 
-    const results = this.scholarships.map(sch => {
+    // Update active filter summary badge
+    const summaryPill = document.getElementById('activeFiltersSummaryPill');
+    if (summaryPill) {
+      const activeParts = [];
+      if (genderVal !== 'all') activeParts.push(genderVal);
+      if (categoryVal !== 'all') activeParts.push(categoryVal);
+      if (stateVal !== 'all') activeParts.push(stateVal);
+      if (courseVal !== 'all') activeParts.push(courseVal);
+      if (incomeVal !== 'all') activeParts.push(`Income < ₹${(parseInt(incomeVal)/100000).toFixed(1)}L`);
+      if (marksVal > 60) activeParts.push(`Marks: ${marksVal}%`);
+      summaryPill.textContent = activeParts.length ? `Filters active: ${activeParts.join(' • ')}` : 'Showing all criteria';
+    }
+
+    const results = [];
+
+    for (const sch of this.scholarships) {
       let eligible = true;
       let reasons = [];
+
+      // Keyword Search Filter
+      if (this.searchQuery) {
+        const text = `${sch.name} ${sch.provider} ${sch.description} ${sch.category.join(' ')} ${sch.states.join(' ')}`.toLowerCase();
+        if (!text.includes(this.searchQuery)) {
+          continue; // completely skip if keyword search doesn't match
+        }
+      }
+
+      // Quick Pill Filter
+      if (this.activePill === 'female' && sch.gender !== 'Female') continue;
+      if (this.activePill === 'central') {
+        const p = sch.provider.toLowerCase();
+        if (!p.includes('govt') && !p.includes('ministry') && !p.includes('aicte') && !p.includes('central')) continue;
+      }
+      if (this.activePill === 'csr') {
+        const p = `${sch.provider} ${sch.name}`.toLowerCase();
+        if (!p.includes('foundation') && !p.includes('trust') && !p.includes('tata') && !p.includes('reliance') && !p.includes('hdfc') && !p.includes('wipro') && !p.includes('siemens') && !p.includes('birla')) continue;
+      }
+      if (this.activePill === 'state') {
+        if (sch.states.includes('All')) continue;
+      }
+      if (this.activePill === 'tech') {
+        if (!sch.eligibleCourses.includes('B.Tech/BE')) continue;
+      }
 
       // Income check
       if (incomeVal !== 'all') {
         const incomeNum = parseInt(incomeVal, 10);
         if (incomeNum > sch.maxIncome) {
           eligible = false;
-          reasons.push(`Income exceeds max limit of ₹${(sch.maxIncome / 100000).toFixed(1)} Lakhs`);
+          reasons.push(`Family income exceeds ceiling of ₹${(sch.maxIncome / 100000).toFixed(1)} LPA`);
         }
       }
 
@@ -136,7 +264,7 @@ class ScholarshipEngine {
       if (categoryVal !== 'all') {
         if (!sch.category.includes(categoryVal)) {
           eligible = false;
-          reasons.push(`Only available for ${sch.category.join(', ')} categories`);
+          reasons.push(`Reserved for ${sch.category.join(', ')} categories`);
         }
       }
 
@@ -164,12 +292,12 @@ class ScholarshipEngine {
         }
       }
 
-      return {
+      results.push({
         ...sch,
         isEligible: eligible,
         reasons: reasons
-      };
-    });
+      });
+    }
 
     this.renderScholarshipCards(results);
   }
@@ -177,10 +305,20 @@ class ScholarshipEngine {
   renderScholarshipCards(list) {
     const container = document.getElementById('scholarshipCardsContainer');
     const countBadge = document.getElementById('eligibleScholarshipsCountBadge');
+    const heading = document.getElementById('scholarshipResultsHeading');
     if (!container) return;
 
+    // Filter by mode: Eligible only vs Show all
+    let displayList = list;
+    if (this.showOnlyEligible) {
+      displayList = list.filter(s => s.isEligible);
+      if (heading) heading.textContent = "100% Eligible Scholarships For You";
+    } else {
+      if (heading) heading.textContent = "All Indian Schemes (Eligibility Status)";
+    }
+
     // Sort: Eligible first, then by award amount numeric descending
-    list.sort((a, b) => {
+    displayList.sort((a, b) => {
       if (a.isEligible && !b.isEligible) return -1;
       if (!a.isEligible && b.isEligible) return 1;
       return b.amountNumeric - a.amountNumeric;
@@ -188,37 +326,57 @@ class ScholarshipEngine {
 
     const eligibleCount = list.filter(s => s.isEligible).length;
     if (countBadge) {
-      countBadge.textContent = `${eligibleCount} Matches`;
+      if (this.showOnlyEligible) {
+        countBadge.textContent = `${displayList.length} Matching Schemes`;
+      } else {
+        countBadge.textContent = `${eligibleCount} of ${list.length} Eligible`;
+      }
     }
 
-    if (list.length === 0) {
+    if (displayList.length === 0) {
       container.innerHTML = `
-        <div class="col-span-full py-12 text-center text-slate-500">
-          No scholarships found matching current criteria. Try resetting filters.
+        <div class="col-span-full py-12 px-6 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 text-center space-y-4">
+          <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 flex items-center justify-center text-2xl shadow-sm">
+            🔍
+          </div>
+          <div class="max-w-md mx-auto space-y-1.5">
+            <h4 class="text-base font-bold text-slate-900 dark:text-white">No Matching Scholarships for These Exact Criteria</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Try adjusting your filters (e.g. set Annual Family Income to 'Any' or choose 'All India' states), or switch to 'All Schemes' to see all requirements.
+            </p>
+          </div>
+          <div class="flex items-center justify-center gap-3 pt-2">
+            <button onclick="window.scholarshipEngine.resetFilters()" class="py-2.5 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition cursor-pointer">
+              🔄 Reset All Filters
+            </button>
+            <button onclick="document.getElementById('btnScholarshipShowAll')?.click()" class="py-2.5 px-4 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer">
+              🌐 View All 25+ Schemes
+            </button>
+          </div>
         </div>
       `;
       return;
     }
 
-    container.innerHTML = list.map(item => `
-      <div class="scholarship-card relative rounded-2xl border transition-all duration-300 p-5 flex flex-col justify-between ${
+    container.innerHTML = displayList.map(item => `
+      <div class="scholarship-card relative rounded-3xl border transition-all duration-300 p-5 sm:p-6 flex flex-col justify-between ${
         item.isEligible 
-          ? 'bg-white/90 dark:bg-slate-900/90 border-emerald-200 dark:border-emerald-900/60 shadow-sm hover:shadow-md hover:border-emerald-400' 
-          : 'bg-slate-50/60 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 opacity-75'
+          ? 'bg-white/95 dark:bg-slate-900/95 border-emerald-300/80 dark:border-emerald-800/80 shadow-md hover:shadow-xl hover:border-emerald-500' 
+          : 'bg-slate-50/70 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800 opacity-80'
       }">
         <div>
-          <!-- Status Pill & Gender Badge -->
+          <!-- Status Pill & Deadline -->
           <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold ${
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold ${
               item.isEligible 
-                ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' 
-                : 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300'
+                ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-300/60' 
+                : 'bg-rose-100 text-rose-800 dark:bg-rose-950/80 dark:text-rose-300 border border-rose-300/60'
             }">
               ${item.isEligible 
-                ? '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 100% Eligible' 
-                : '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Gap Identified'}
+                ? '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> 100% Eligible' 
+                : '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg> Gap Identified'}
             </span>
-            <div class="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+            <div class="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400 font-semibold">
               <span>📅 ${item.deadline}</span>
             </div>
           </div>
@@ -227,24 +385,24 @@ class ScholarshipEngine {
           <h3 class="text-base font-bold text-slate-900 dark:text-white leading-snug mb-1">
             ${item.name}
           </h3>
-          <p class="text-xs text-indigo-600 dark:text-indigo-400 font-medium mb-3">
+          <p class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold mb-3">
             ${item.provider}
           </p>
 
           <!-- Award Amount Highlight -->
-          <div class="p-3 rounded-xl bg-gradient-to-r from-indigo-50/70 to-emerald-50/70 dark:from-indigo-950/30 dark:to-emerald-950/30 border border-indigo-100 dark:border-indigo-900/40 mb-3">
-            <div class="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">Award Amount</div>
-            <div class="text-base font-extrabold text-emerald-600 dark:text-emerald-400">
+          <div class="p-3.5 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-indigo-500/10 to-purple-500/10 dark:from-emerald-950/40 dark:via-indigo-950/40 dark:to-purple-950/40 border border-emerald-200/60 dark:border-emerald-800/40 mb-3.5">
+            <div class="text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400">Award Amount / Grant</div>
+            <div class="text-lg font-black text-emerald-600 dark:text-emerald-400 font-display">
               ${item.awardAmount}
             </div>
           </div>
 
           <!-- Criteria Tags -->
-          <div class="flex flex-wrap gap-1.5 mb-3 text-[11px]">
-            <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Min: ${item.minPercentage}%</span>
-            <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Max Income: ₹${(item.maxIncome / 100000).toFixed(1)}L</span>
-            <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${item.gender === 'Any' ? 'All Genders' : 'Girls Only'}</span>
-            <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${item.states.includes('All') ? 'All India' : item.states.join(', ')}</span>
+          <div class="flex flex-wrap gap-1.5 mb-3 text-[11px] font-semibold">
+            <span class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Min: ${item.minPercentage}%</span>
+            <span class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Max Income: ₹${(item.maxIncome / 100000).toFixed(1)}L</span>
+            <span class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${item.gender === 'Any' ? 'All Genders' : 'Girls Only'}</span>
+            <span class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${item.states.includes('All') ? 'All India' : item.states.join(', ')}</span>
           </div>
 
           <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 mb-4 leading-relaxed">
@@ -252,25 +410,25 @@ class ScholarshipEngine {
           </p>
 
           <!-- Gap reasons if not eligible -->
-          ${!item.isEligible ? `
-            <div class="mb-3 p-2.5 rounded-lg bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 text-[11px] text-rose-700 dark:text-rose-400">
-              <strong>Eligibility Gaps:</strong> ${item.reasons.join('; ')}
+          ${!item.isEligible && item.reasons.length ? `
+            <div class="mb-3.5 p-3 rounded-2xl bg-rose-50/80 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/40 text-xs text-rose-700 dark:text-rose-400">
+              <strong class="font-bold">Eligibility Gap:</strong> ${item.reasons.join('; ')}
             </div>
           ` : ''}
         </div>
 
         <!-- Action Buttons -->
         <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
-          <button class="btn-open-sop flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white transition shadow-sm" data-sch-id="${item.id}">
+          <button class="btn-open-sop flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white transition shadow-sm cursor-pointer" data-sch-id="${item.id}">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-            Write SOP with AI
+            <span>Write SOP with AI</span>
           </button>
           
-          <button class="btn-save-scholarship p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition" title="Save to Dashboard" data-sch-id="${item.id}">
+          <button class="btn-save-scholarship p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer" title="Save to Dashboard" data-sch-id="${item.id}">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
           </button>
 
-          <a href="${item.officialPortal}" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition" title="Official Application Portal">
+          <a href="${item.officialPortal}" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition" title="Official Application Portal">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
           </a>
         </div>
@@ -289,8 +447,11 @@ class ScholarshipEngine {
       btn.addEventListener('click', () => {
         const id = btn.getAttribute('data-sch-id');
         this.saveScholarshipToDashboard(id, btn);
-      });
     });
+
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
   }
 
   saveScholarshipToDashboard(id, btn) {
@@ -325,7 +486,7 @@ class ScholarshipEngine {
 
         if (btn) {
           btn.classList.add('bg-emerald-100', 'text-emerald-700', 'border-emerald-300');
-          btn.innerHTML = `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>`;
+          btn.innerHTML = `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>`;
         }
         if (window.audioAssistant) window.audioAssistant.playClick();
         if (window.studentDashboard) window.studentDashboard.loadDashboardData();
