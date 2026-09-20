@@ -508,8 +508,8 @@ async function handleApi(req, res, parsedUrl) {
   return sendJson(res, 404, { error: `API route ${pathname} not found` });
 }
 
-// Main HTTP Server
-const server = http.createServer(async (req, res) => {
+// Main HTTP Request Handler & Server
+const requestListener = async (req, res) => {
   const parsedUrl = url.parse(req.url, true);
 
   // CORS preflight
@@ -570,7 +570,9 @@ const server = http.createServer(async (req, res) => {
       }
     });
   });
-});
+};
+
+const server = http.createServer(requestListener);
 
 if (require.main === module) {
   server.listen(PORT, () => {
@@ -585,4 +587,7 @@ if (require.main === module) {
   });
 }
 
-module.exports = { handleApi, server };
+// Export callable function for Vercel Serverless / Node Runtime
+module.exports = requestListener;
+module.exports.handleApi = handleApi;
+module.exports.server = server;
