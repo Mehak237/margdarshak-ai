@@ -13,11 +13,23 @@ class ScholarshipEngine {
   }
 
   init() {
-    if (window.scholarshipsData) {
-      this.scholarships = window.scholarshipsData;
-    }
+    this.loadData();
     this.bindEvents();
     this.filterScholarships();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      this.loadData();
+      this.filterScholarships();
+    });
+  }
+
+  loadData() {
+    if (window.scholarshipsData && window.scholarshipsData.length > 0) {
+      this.scholarships = window.scholarshipsData;
+    } else if (typeof scholarshipsData !== 'undefined' && scholarshipsData.length > 0) {
+      this.scholarships = scholarshipsData;
+      window.scholarshipsData = scholarshipsData;
+    }
   }
 
   bindEvents() {
@@ -447,6 +459,7 @@ class ScholarshipEngine {
       btn.addEventListener('click', () => {
         const id = btn.getAttribute('data-sch-id');
         this.saveScholarshipToDashboard(id, btn);
+      });
     });
 
     if (window.lucide) {
